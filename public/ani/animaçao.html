@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Cine Blinkly Intro</title>
+  <link rel="stylesheet" href="animaçao.css">
+</head>
+<body>
+  <!-- Vídeo de introdução -->
+  <!-- Vídeo de introdução -->
+  <video id="introVideo" autoplay playsinline>
+    <source src="https://limewire-filesharing-production.b61cdfd8cf17f52ddc020162e738eb5d.r2.cloudflarestorage.com/buckets/d195fab9-5f1f-4168-945d-6b533caaa283/8f22a409-6d42-4a1f-9e60-d70df4e40d63?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20250831T062423Z&X-Amz-SignedHeaders=host&X-Amz-Credential=a1868571dfad6d4fe293ee5b945a0ad5%2F20250831%2Fauto%2Fs3%2Faws4_request&X-Amz-Expires=14400&X-Amz-Signature=daff43fcc666b2e23ec53b7ace00cfbd6c88c92571a2fe736d829048ff7a03e9" type="video/mp4">
+    Seu navegador não suporta vídeos em HTML5.
+  </video>>
+  
+
+  <!-- Tela de carregamento (invisível no início) -->
+  <div id="loading">
+    <div class="loader"></div>
+    <p>Carregando...</p>
+  </div>
+
+  <script>
+    const video = document.getElementById("intro-video");
+    const intro = document.getElementById("intro");
+    const loading = document.getElementById("loading");
+
+    // Forçar som sempre ativo
+    video.muted = false;
+    video.volume = 1.0;
+
+    // Quando o vídeo terminar -> mostra carregando
+    video.onended = () => {
+      intro.style.display = "none";
+      loading.style.display = "flex";
+
+      // Depois de 2s -> redireciona
+      setTimeout(() => {
+        window.location.href = "filminho/filmes.html";
+      }, 2000);
+    };
+  </script>
+</body>
+</html>

@@ -1,0 +1,412 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Roboto", sans-serif;
+}
+
+body {
+  background: #000;
+  color: #fff;
+  overflow: hidden;
+}
+
+/* Fundo com efeito de cinema */
+body::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0.3;
+  width: 100%;
+  height: 100%;
+  background: url("https://codingstella.com/wp-content/uploads/2024/01/download-4.jpeg") no-repeat center center/cover;
+  filter: blur(4px) brightness(0.5);
+}
+
+/* Luz de projetor simulada */
+body::after {
+  content: "";
+  position: absolute;
+  top: -100px;
+  left: 50%;
+  transform: translateX(-50%) rotate(25deg);
+  width: 800px;
+  height: 800px;
+  background: radial-gradient(rgba(77, 175, 255, 0.25), transparent 70%);
+  filter: blur(120px);
+  pointer-events: none;
+}
+
+/* Logo */
+nav {
+  position: fixed;
+  padding: 25px 60px;
+  z-index: 1;
+}
+
+nav a img {
+  width: 167px;
+  filter: drop-shadow(0 0 6px rgba(77, 175, 255, 0.8));
+}
+
+/* Caixa de login */
+.form-wrapper {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  border-radius: 10px;
+  padding: 70px;
+  width: 450px;
+  transform: translate(-50%, -50%);
+  background: rgba(0, 0, 0, 0.85);
+  box-shadow: 0 0 30px rgba(77, 175, 255, 0.4), 0 0 60px rgba(77, 175, 255, 0.2);
+  backdrop-filter: blur(8px);
+}
+
+.form-wrapper h2 {
+  color: #fff;
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 20px;
+  text-shadow: 0 0 8px rgba(77, 175, 255, 0.8);
+}
+
+/* Inputs */
+form .form-control {
+  height: 50px;
+  position: relative;
+  margin-bottom: 16px;
+}
+
+.form-control input {
+  height: 100%;
+  width: 100%;
+  background: #111;
+  border: 1px solid #444;
+  outline: none;
+  border-radius: 4px;
+  color: #fff;
+  font-size: 1rem;
+  padding: 0 20px;
+  transition: all 0.3s ease;
+}
+
+.form-control input:is(:focus, :valid) {
+  background: #222;
+  border-color: #4dafff;
+  box-shadow: 0 0 10px rgba(77, 175, 255, 0.6);
+  padding: 16px 20px 0;
+}
+
+.form-control label {
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1rem;
+  pointer-events: none;
+  color: #8c8c8c;
+  transition: all 0.2s ease;
+}
+
+.form-control input:is(:focus, :valid) ~ label {
+  font-size: 0.75rem;
+  transform: translateY(-130%);
+  color: #4dafff;
+}
+
+/* Botão */
+form button {
+  width: 100%;
+  padding: 16px 0;
+  font-size: 1rem;
+  background: linear-gradient(135deg, #4dafff, #7fd1ff);
+  color: #fff;
+  font-weight: 600;
+  border-radius: 6px;
+  border: none;
+  outline: none;
+  margin: 25px 0 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+form button:hover {
+  background: linear-gradient(135deg, #3699e6, #5cbcff);
+  box-shadow: 0 0 15px rgba(77, 175, 255, 0.8);
+}
+
+/* Links e textos */
+.form-wrapper a {
+  text-decoration: none;
+}
+
+.form-wrapper a:hover {
+  text-decoration: underline;
+}
+
+.form-wrapper :where(label, p, small, a) {
+  color: #b3b3b3;
+}
+
+form .form-help {
+  display: flex;
+  justify-content: space-between;
+}
+
+form .remember-me {
+  display: flex;
+}
+
+form .remember-me input {
+  margin-right: 5px;
+  accent-color: #4dafff;
+}
+
+form .form-help :where(label, a) {
+  font-size: 0.9rem;
+}
+
+.form-wrapper p a {
+  color: #4dafff;
+}
+
+.form-wrapper small {
+  display: block;
+  margin-top: 15px;
+  color: #b3b3b3;
+}
+
+.form-wrapper small a {
+  color: #7fd1ff;
+}
+
+/* Responsivo */
+@media (max-width: 740px) {
+  body::before {
+    display: none;
+  }
+
+  nav,
+  .form-wrapper {
+    padding: 20px;
+  }
+
+  nav a img {
+    width: 140px;
+  }
+
+  .form-wrapper {
+    width: 100%;
+    top: 43%;
+  }
+
+  .form-wrapper form {
+    margin: 25px 0 40px;
+  }
+}
+
+/* --- Partículas flutuando --- */
+.particles {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: -1;
+}
+
+.particles span {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: rgba(77, 175, 255, 0.9);
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(77, 175, 255, 1);
+  animation: floatUp linear infinite;
+  opacity: 0.7;
+}
+
+@keyframes floatUp {
+  0% { transform: translateY(100vh) scale(0.4); opacity: 0.1; }
+  50% { opacity: 0.9; }
+  100% { transform: translateY(-10vh) scale(1); opacity: 0; }
+}
+
+/* --- Estrelas piscando --- */
+.stars span {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: white;
+  border-radius: 50%;
+  opacity: 0.6;
+  animation: twinkle 3s infinite alternate;
+}
+
+@keyframes twinkle {
+  from { opacity: 0.2; transform: scale(0.8); }
+  to { opacity: 1; transform: scale(1.4); }
+}
+
+/* --- Faíscas laterais (estilo meteoro) --- */
+.spark {
+  position: absolute;
+  width: 2px;
+  height: 40px;
+  background: linear-gradient(to top, rgba(77,175,255,0.8), transparent);
+  opacity: 0.7;
+  animation: sparks 6s linear infinite;
+}
+
+@keyframes sparks {
+  from { transform: translateX(120vw) translateY(-10vh) rotate(45deg); opacity: 1; }
+  to { transform: translateX(-20vw) translateY(110vh) rotate(45deg); opacity: 0; }
+}
+
+/* --- Neblina dupla --- */
+.fog, .fog2 {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 200%;
+  height: 250px;
+  background: radial-gradient(ellipse at center, rgba(77, 175, 255, 0.15) 0%, transparent 70%);
+  filter: blur(80px);
+  z-index: -1;
+}
+
+.fog { animation: fogWave 40s ease-in-out infinite alternate; }
+.fog2 { animation: fogWave 60s ease-in-out infinite alternate-reverse; opacity: 0.6; }
+
+@keyframes fogWave {
+  0% { transform: translateX(0) translateY(0); }
+  50% { transform: translateX(-30%) translateY(-20px); }
+  100% { transform: translateX(-60%) translateY(0); }
+}
+
+/* --- Aura atrás do login --- */
+.form-wrapper::before {
+  content: "";
+  position: absolute;
+  top: -50px;
+  left: -50px;
+  right: -50px;
+  bottom: -50px;
+  background: radial-gradient(circle, rgba(77,175,255,0.25), transparent 70%);
+  border-radius: 20px;
+  z-index: -1;
+  animation: pulse 6s infinite ease-in-out;
+}
+
+@keyframes pulse {
+  0% { transform: scale(0.95); opacity: 0.4; }
+  50% { transform: scale(1.1); opacity: 0.7; }
+  100% { transform: scale(0.95); opacity: 0.4; }
+}
+
+
+/* Barra de força da senha */
+.strength-bar {
+  width: 100%;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  margin-top: 6px;
+  overflow: hidden;
+}
+
+.strength-fill {
+  height: 100%;
+  width: 0;
+  border-radius: 4px;
+  transition: width 0.4s ease, background 0.4s ease;
+}
+/* Caixa de senha com olho */
+.senha-box {
+  position: relative;
+}
+
+.senha-box input {
+  padding-right: 40px; /* espaço reservado pro ícone */
+}
+
+/* Ícone do olho */
+.toggle-senha {
+  position: absolute;
+  right: 12px;   /* afastado da borda */
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  font-size: 1.2rem;
+  user-select: none;
+  color: #b3b3b3;
+  opacity: 0.7;
+  transition: 0.3s ease;
+}
+
+.toggle-senha:hover {
+  opacity: 1;
+  color: #4dafff;
+  text-shadow: 0 0 8px rgba(77, 175, 255, 0.8);
+}
+
+.toggle-senha.ativo {
+  color: #4dafff;
+  text-shadow: 0 0 12px rgba(77, 175, 255, 1);
+}
+
+
+
+
+/* Logo */
+.logo-cinema {
+  width: 200px;
+  opacity: 0;
+  transform: scale(0.7);
+  animation: logoEntrada 1.5s forwards ease-out, 
+             logoBalanco 3s 1.5s infinite ease-in-out;
+  /* 1. entra normal */
+  /* 2. depois de 1.5s começa balançar infinitamente */
+}
+
+@keyframes logoEntrada {
+  0% { opacity: 0; transform: scale(0.7) translateY(-30px); }
+  100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+@keyframes logoBalanco {
+  0%   { transform: translateY(0) rotate(0deg); }
+  25%  { transform: translateY(-4px) rotate(-2deg); }
+  50%  { transform: translateY(0) rotate(2deg); }
+  75%  { transform: translateY(4px) rotate(-1deg); }
+  100% { transform: translateY(0) rotate(0deg); }
+}
+
+/* Comidas caindo */
+.comida {
+  position: absolute;
+  top: -40px;
+  font-size: 1.3rem;
+  opacity: 0;
+  animation: cairComida 4s linear infinite;
+}
+
+/* Aleatório */
+.comida:nth-child(2) { left: 20%; animation-delay: 0s; }
+.comida:nth-child(3) { left: 50%; animation-delay: 1s; }
+.comida:nth-child(4) { left: 80%; animation-delay: 2s; }
+.comida:nth-child(5) { left: 35%; animation-delay: 1.5s; }
+.comida:nth-child(6) { left: 65%; animation-delay: 2.5s; }
+.comida:nth-child(7) { left: 10%; animation-delay: 3s; }
+
+@keyframes cairComida {
+  0%   { transform: translateY(-60px) rotate(-20deg); opacity: 0; }
+  20%  { opacity: 1; }
+  100% { transform: translateY(100vh) rotate(45deg); opacity: 0; }
+}
