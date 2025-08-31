@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <link rel="shortcut icon" href="e.ico" type="image/x-icon">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Configurações - Blinky</title>
+  <link rel="stylesheet" href="configuracoes.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+  <header class="settings-header">
+    <h1>Configurações</h1>
+  </header>
+
+  <main class="settings-container">
+    <!-- Central de Conta -->
+    <section class="settings-section">
+      <h2><i data-lucide="user-cog"></i> Central de Conta</h2>
+      
+      <ul>
+        <li><a href="#salvos"><i data-lucide="bookmark"></i> Salvos</a></li>
+        <li><a href="#arquivados"><i data-lucide="archive"></i> Arquivados</a></li>
+        <li><a href="#atividades"><i data-lucide="activity"></i> Suas atividades</a></li>
+        <li><a href="#notificacoes"><i data-lucide="bell"></i> Notificações</a></li>
+        <li><a href="#tema"><i data-lucide="sun"></i> Gerenciamento de Tema</a></li>
+      </ul>
+    </section>
+
+    <!-- Privacidade e Conta -->
+    <section class="settings-section">
+      <h2><i data-lucide="shield"></i> Privacidade e Conta</h2>
+      <ul>
+        <li><a href="#quem-ve"><i data-lucide="eye"></i> Quem pode ver seu conteúdo</a></li>
+        <li><a href="#privado"><i data-lucide="lock"></i> Conta Privada</a></li>
+        <li><a href="#amigos-proximos"><i data-lucide="users"></i> Amigos Próximos</a></li>
+        <li><a href="#postagem-cruzada"><i data-lucide="repeat"></i> Postagens Cruzadas</a></li>
+        <li><a href="#bloqueados"><i data-lucide="ban"></i> Bloqueados</a></li>
+        <li><a href="#ocultar-story"><i data-lucide="video-off"></i> Ocultar story e live</a></li>
+        <li><a href="#atividade"><i data-lucide="clock"></i> Atividade</a></li>
+      </ul>
+    </section>
+
+    <!-- Interações e Amigos -->
+    <section class="settings-section">
+      <h2><i data-lucide="message-square"></i> Interações e Amigos</h2>
+      <ul>
+        <li><a href="#mensagens"><i data-lucide="message-circle"></i> Mensagens e resposta ao story</a></li>
+        <li><a href="#marcacoes"><i data-lucide="at-sign"></i> Marcações e menções</a></li>
+        <li><a href="#comentarios"><i data-lucide="message-square"></i> Comentários</a></li>
+        <li><a href="#compartilhar"><i data-lucide="share"></i> Compartilhamento</a></li>
+        <li><a href="#restricoes"><i data-lucide="slash"></i> Limitar interações</a></li>
+        <li><a href="#palavras"><i data-lucide="filter"></i> Palavras ocultas</a></li>
+        <li><a href="#seguir"><i data-lucide="user-plus"></i> Seguir e convidar amigos</a></li>
+      </ul>
+    </section>
+
+    <!-- O que você vê -->
+    <section class="settings-section">
+      <h2><i data-lucide="eye"></i> O que você vê</h2>
+      <ul>
+        <li><a href="#favoritos"><i data-lucide="star"></i> Favoritos</a></li>
+        <li><a href="#silenciados"><i data-lucide="volume-x"></i> Silenciados</a></li>
+        <li><a href="#preferencias"><i data-lucide="sliders"></i> Preferências de conteúdo</a></li>
+        <li><a href="#curtidas"><i data-lucide="heart"></i> Curtidas e compartilhamentos</a></li>
+        <li><a href="#assinaturas"><i data-lucide="badge-dollar-sign"></i> Assinaturas</a></li>
+      </ul>
+    </section>
+
+    <!-- Profissionais -->
+    <section class="settings-section">
+      <h2><i data-lucide="briefcase"></i> Para profissionais</h2>
+      <ul>
+        <li><a href="#ferramentas"><i data-lucide="tool"></i> Ferramentas da conta</a></li>
+        <li><a href="#verificado"><i data-lucide="check-circle"></i> Perfil verificado</a></li>
+      </ul>
+    </section>
+
+    <!-- Suporte -->
+    <section class="settings-section">
+      <h2><i data-lucide="help-circle"></i> Suporte e Informações</h2>
+      <ul>
+        <li><a href="#ajuda"><i data-lucide="life-buoy"></i> Ajuda</a></li>
+        <li><a href="#status"><i data-lucide="activity"></i> Status da conta</a></li>
+        <li><a href="#sobre"><i data-lucide="info"></i> Sobre</a></li>
+      </ul>
+    </section>
+    
+
+    <!-- Contas -->
+    <section class="settings-section">
+      <h2><i data-lucide="log-in"></i> Contas</h2>
+      <ul>
+        <li><a href="#adicionar" class="blue"><i data-lucide="user-plus"></i> Adicionar conta</a></li>
+        <li><a href="#sair" class="red"><i data-lucide="log-out"></i> Sair</a></li>
+        <li><a href="#desconectar" class="red"><i data-lucide="x-circle"></i> Desconectar de todas as contas</a></li>
+      </ul>
+    </section>
+  </main>
+
+   <!-- Seu main e outros conteúdos aqui -->
+
+  <!-- Modal de confirmação -->
+  <div id="confirmModal" class="modal-overlay" style="display:none;">
+    <div class="modal-content">
+      <p>Você realmente deseja desconectar de todas as contas?</p>
+      <div class="modal-buttons">
+        <button id="confirmBtn">Confirmar</button>
+        <button id="cancelBtn">Cancelar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal de carregamento -->
+  <div id="loadingModal" class="modal-overlay" style="display:none;">
+    <div class="modal-content">
+      <p>Desconectando...</p>
+      <div class="loader"></div>
+    </div>
+  </div>
+
+  <script>
+    lucide.createIcons();
+  </script>
+  <script src="configuracoes.js"></script>
+</body>
+</html>
+
+</body>
+</html>

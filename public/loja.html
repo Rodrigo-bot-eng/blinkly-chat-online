@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>UltraStore</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Swiper CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+
+  <style>
+    .nav-link { @apply text-white/80 hover:text-white transition-colors; }
+    .btn-primary { @apply px-4 py-2 rounded-2xl bg-fuchsia-500/20 hover:bg-fuchsia-500/30 ring-1 ring-fuchsia-300/30 shadow shadow-fuchsia-500/20; }
+    .btn-ghost { @apply px-4 py-2 rounded-2xl bg-white/10 hover:bg-white/20 ring-1 ring-white/15; }
+    .neon { box-shadow: 0 0 0 1px rgba(255,255,255,0.1), 0 0 40px rgba(236, 72, 153, 0.15), inset 0 0 40px rgba(59, 130, 246, 0.06); }
+    .animate-bgshift { animation: bgshift 14s ease-in-out infinite alternate; }
+    .animate-shimmer { background-size: 200% 100%; animation: shimmer 4s linear infinite; }
+    .animate-float { animation: float 6s ease-in-out infinite; }
+    @keyframes shimmer { 0% { background-position: 0% 50%; } 100% { background-position: 200% 50%; } }
+    @keyframes bgshift { 0% { filter: hue-rotate(0deg) saturate(1); } 100% { filter: hue-rotate(20deg) saturate(1.4); } }
+    @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-8px); } }
+  </style>
+</head>
+<body class="min-h-screen w-full text-white bg-black/95 overflow-x-hidden">
+
+  <!-- BACKGROUND FX -->
+  <div class="pointer-events-none fixed inset-0 -z-10">
+    <div class="absolute inset-0 opacity-60 animate-bgshift" style="background: radial-gradient(1200px 600px at 50% 40%, rgba(0,255,210,.25), transparent 60%), radial-gradient(800px 400px at 20% 10%, rgba(120,0,255,.20), transparent 60%), radial-gradient(800px 400px at 80% 90%, rgba(255,0,120,.18), transparent 60%)"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0,transparent_35%,rgba(255,255,255,0.03)_36%,transparent_37%)] [background-size:12px_12px]"></div>
+  </div>
+
+  <!-- NAVBAR -->
+  <header class="sticky top-0 z-50 backdrop-blur supports-[backdrop-filter]:bg-black/40 border-b border-white/10">
+    <div class="mx-auto max-w-7xl px-4 py-3 flex items-center justify-between">
+      <a href="#home" class="flex items-center gap-2 group">
+        <div class="h-8 w-8 rounded-xl bg-white/10 ring-2 ring-fuchsia-500/50 shadow-[0_0_24px_rgba(236,72,153,.45)] animate-pulse"></div>
+        <span class="text-lg font-bold tracking-wider group-hover:tracking-[.2em] transition-all">
+          ULTRA<span class="text-fuchsia-400">STORE</span>
+        </span>
+      </a>
+      <nav class="hidden md:flex items-center gap-6 text-sm">
+        <a href="lojagamesblinkly.html" class="nav-link">Games</a>
+        <a href="roupas.html" class="nav-link">Roupas</a>
+        <a href="acessorios.html" class="nav-link">Acessórios</a>
+        <a href="#ofertas" class="nav-link">Ofertas</a>
+        <a href="#contato" class="px-4 py-2 rounded-2xl bg-white/10 hover:bg-white/20 transition-all shadow-lg shadow-fuchsia-500/10">
+          Contato
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section id="home" class="relative">
+    <div class="mx-auto max-w-7xl px-4 py-24 md:py-32 grid md:grid-cols-2 gap-10 items-center">
+      <div>
+        <h1 class="text-4xl md:text-6xl font-extrabold leading-tight">
+          Sua loja multiuniverso com
+          <span class="block text-transparent bg-clip-text bg-gradient-to-r from-fuchsia-400 via-cyan-400 to-violet-400 animate-shimmer">
+            efeitos insanos & experiência cinematográfica
+          </span>
+        </h1>
+        <p class="mt-5 text-white/80 max-w-prose">
+          Um ecossistema onde games, roupas e acessórios se encontram com animações
+          responsivas, microinterações e navegação fluida. Cada clique vira uma cena.
+        </p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href="#games" class="btn-primary">Explorar Games</a>
+          <a href="#fashion" class="btn-ghost">Ver Roupas</a>
+          <a href="#acessories" class="btn-ghost">Acessórios</a>
+        </div>
+      </div>
+      <div class="relative">
+        <div class="aspect-[4/3] rounded-3xl overflow-hidden ring-1 ring-white/10 shadow-2xl neon">
+          <img src="https://picsum.photos/seed/hero/1600/1200" class="w-full h-full object-cover scale-105 hover:scale-100 transition-transform duration-700" alt="Hero" />
+        </div>
+        <div class="absolute -bottom-6 -left-6 h-28 w-28 rounded-3xl bg-fuchsia-500/20 blur-2xl animate-float"></div>
+        <div class="absolute -top-6 -right-6 h-24 w-24 rounded-3xl bg-cyan-400/20 blur-2xl animate-float [animation-delay:200ms]"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CARROSSEL 3D CATEGORIAS -->
+  <section id="categorias" class="py-16">
+    <div class="mx-auto max-w-7xl px-4">
+      <h2 class="text-3xl md:text-4xl font-bold mb-8 text-center">Explore os universos</h2>
+      <div class="swiper mySwiper">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide rounded-2xl overflow-hidden shadow-lg bg-white/5 border border-white/10 backdrop-blur transition-transform duration-300 hover:scale-105">
+            <img src="https://picsum.photos/seed/games/1200/800" class="w-full h-60 object-cover" />
+            <div class="p-4">
+              <span class="text-xs uppercase text-fuchsia-400">Novidades</span>
+              <h3 class="text-xl font-bold mt-1">Games</h3>
+              <p class="text-white/70 text-sm mt-1">Lançamentos, clássicos e edições especiais.</p>
+            </div>
+          </div>
+          <div class="swiper-slide rounded-2xl overflow-hidden shadow-lg bg-white/5 border border-white/10 backdrop-blur transition-transform duration-300 hover:scale-105">
+            <img src="https://picsum.photos/seed/fashion/1200/800" class="w-full h-60 object-cover" />
+            <div class="p-4">
+              <span class="text-xs uppercase text-fuchsia-400">Coleção</span>
+              <h3 class="text-xl font-bold mt-1">Roupas</h3>
+              <p class="text-white/70 text-sm mt-1">Streetwear, techwear e coleções cápsula.</p>
+            </div>
+          </div>
+          <div class="swiper-slide rounded-2xl overflow-hidden shadow-lg bg-white/5 border border-white/10 backdrop-blur transition-transform duration-300 hover:scale-105">
+            <img src="https://picsum.photos/seed/acess/1200/800" class="w-full h-60 object-cover" />
+            <div class="p-4">
+              <span class="text-xs uppercase text-fuchsia-400">Populares</span>
+              <h3 class="text-xl font-bold mt-1">Acessórios</h3>
+              <p class="text-white/70 text-sm mt-1">Headsets, teclados, óculos e mais.</p>
+            </div>
+          </div>
+        </div>
+        <!-- Pagination -->
+        <div class="swiper-pagination"></div>
+      </div>
+    </section>
+
+  <!-- FOOTER -->
+  <footer id="contato" class="border-t border-white/10">
+    <div class="mx-auto max-w-7xl px-4 py-12 grid md:grid-cols-4 gap-8 text-sm">
+      <div>
+        <div class="text-lg font-bold">ULTRASTORE</div>
+        <p class="text-white/70 mt-2">A loja onde cada categoria é um universo. Visual futurista, experiência sem atrito.</p>
+      </div>
+      <div>
+        <div class="font-semibold mb-2">Categorias</div>
+        <ul class="space-y-1 text-white/70">
+          <li><a href="#games" class="hover:text-white">Games</a></li>
+          <li><a href="#fashion" class="hover:text-white">Roupas</a></li>
+          <li><a href="#acessories" class="hover:text-white">Acessórios</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="font-semibold mb-2">Suporte</div>
+        <ul class="space-y-1 text-white/70">
+          <li>Atendimento</li>
+          <li>Trocas & Devoluções</li>
+          <li>Frete</li>
+        </ul>
+      </div>
+      <div>
+        <div class="font-semibold mb-2">Newsletter</div>
+        <div class="flex gap-2">
+          <input placeholder="Seu e-mail" class="w-full px-3 py-2 rounded-xl bg-white/10 ring-1 ring-white/15 focus:outline-none focus:ring-white/40 placeholder:text-white/40" />
+          <button class="px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20">OK</button>
+        </div>
+      </div>
+    </div>
+    <div class="border-t border-white/10 text-xs text-white/60 py-4 text-center">
+      © 2025 UltraStore. Todos os direitos reservados.
+    </div>
+  </footer>
+
+  <!-- Swiper JS -->
+  <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+  <script>
+    const swiper = new Swiper('.mySwiper', {
+      effect: 'coverflow',
+      grabCursor: true,
+      centeredSlides: true,
+      slidesPerView: 'auto',
+      coverflowEffect: {
+        rotate: 30,
+        stretch: 0,
+        depth: 200,
+        modifier: 1,
+        slideShadows: true,
+      },
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+      },
+      autoplay: {
+        delay: 2500,
+        disableOnInteraction: false,
+      },
+    });
+  </script>
+</body>
+</html>

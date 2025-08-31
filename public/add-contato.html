@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contatos</title>
+  <link rel="stylesheet" href="contato.css">
+  <!-- Ionicons -->
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</head>
+<body>
+  <div class="header">
+    <ion-icon name="arrow-back-outline" onclick="voltarFeed()"></ion-icon>
+    <div class="header-info">
+      <h1>Contatos</h1>
+      <span class="contatos-qtd">257 contatos</span>
+    </div>
+    <div class="header-icons">
+      <ion-icon name="search-outline"></ion-icon>
+      <ion-icon name="ellipsis-vertical"></ion-icon>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="menu-item">
+      <ion-icon name="people-outline"></ion-icon>
+      <span>Novo grupo</span>
+    </div>
+    <div class="menu-item">
+      <ion-icon name="person-add-outline"></ion-icon>
+      <span>Novo contato</span>
+    </div>
+    <div class="menu-item">
+      <ion-icon name="people-circle-outline"></ion-icon>
+      <span>Nova comunidade</span>
+    </div>
+    <div class="menu-separator">Encontrar</div>
+    <div class="menu-item">
+      <ion-icon name="briefcase-outline"></ion-icon>
+      <span>Empresas</span>
+    </div>
+
+    <div class="menu-separator">Contatos no WhatsApp</div>
+    <div id="lista-contatos"></div>
+  </div>
+
+  <script src="contato.js"></script>
+</body>
+</html>

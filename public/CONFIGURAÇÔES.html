@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Configurações - Game Drop</title>
+  <link rel="stylesheet" href="CONFIGURAÇÔES.css" />
+</head>
+<body>
+  <div class="settings-container">
+    <h1>Configurações</h1>
+
+    <div class="setting-section">
+      <h2>Geral</h2>
+      <div class="setting-item">
+        <label for="darkModeToggle">Modo Escuro</label>
+        <input type="checkbox" id="darkModeToggle">
+      </div>
+      <div class="setting-item">
+        <label for="notificationsToggle">Notificações</label>
+        <input type="checkbox" id="notificationsToggle">
+      </div>
+    </div>
+
+    <div class="setting-section">
+      <h2>Streaming</h2>
+      <div class="setting-item">
+        <label for="autoQualityToggle">Qualidade Automática</label>
+        <input type="checkbox" id="autoQualityToggle">
+      </div>
+      <div class="setting-item">
+        <label for="showFPS">Exibir FPS</label>
+        <input type="checkbox" id="showFPS">
+      </div>
+      <div class="setting-item">
+        <label for="lowLatencyToggle">Modo Baixa Latência</label>
+        <input type="checkbox" id="lowLatencyToggle">
+      </div>
+    </div>
+
+    <div class="setting-section">
+      <h2>Conta</h2>
+      <div class="setting-item">
+        <label for="autoLogin">Login Automático</label>
+        <input type="checkbox" id="autoLogin">
+      </div>
+      <div class="setting-item">
+        <label for="cloudSave">Salvar na Nuvem</label>
+        <input type="checkbox" id="cloudSave">
+      </div>
+    </div>
+
+    <button id="saveBtn">Salvar Configurações</button>
+  </div>
+
+  <script src="CONFIGURAÇÔES.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Game Drop - Jogar na Nuvem</title>
+  <link rel="stylesheet" href="pag2.css" />
+</head>
+<body class="dark-mode">
+  <video id="backgroundVideo" autoplay muted loop playsinline>
+  <source src="videoplayback.mp4" type="video/mp4" />
+</video>
+
+
+  <header>
+    <div class="topbar">
+ <div class="logo">
+  <span class="logo-icon">🎮</span>
+  <span class="logo-text">Game <strong>Drop</strong></span>
+</div>
+
+      <nav class="menu">
+        <a href="index.html">INíCIO</a>
+        <a href="BIBLIOTECA.html">BIBLIOTECA</a>
+        <a href="CONFIGURAÇÔES.html">CONFIGURAÇÔES</a>
+      </nav>
+      <div class="header-actions">
+        <input type="text" id="searchInput" placeholder="Pesquisar jogo..." />
+        <button id="themeToggle">🌙</button>
+        <div class="user-profile" id="userProfile">
+          <img src="avatar.png" alt="Avatar" class="avatar" id="avatarImage" />
+          <span class="username" id="usernameDisplay">MINHA CONTA</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section id="statusBar">
+    <p id="connectionStatus">🟢 Conectado</p>
+    <p id="cloudStatus">Jogos na Nuvem</p>
+  </section>
+
+  <main>
+    <div class="main-banner">
+      <h1>Explore e jogue na nuvem</h1>
+      <p>Jogue seus games favoritos instantaneamente em qualquer dispositivo.</p>
+    </div>
+
+    <!-- Filtros e controles -->
+    <div class="filters">
+      <input type="text" id="searchInput" placeholder="Buscar jogos..." />
+      <select id="categoryFilter">
+        <option value="todos">Todos</option>
+        <option value="ação">Ação</option>
+        <option value="fps">FPS</option>
+        <option value="aventura">Aventura</option>
+        <option value="rpg">RPG</option>
+        <option value="simulação">Simulação</option>
+        <option value="terror">Terror</option>
+        <option value="corrida">Corrida</option>
+        <option value="esporte">Esporte</option>
+        <option value="moba">MOBA</option>
+        <option value="multiplayer">Multiplayer</option>
+        <option value="puzzle">Puzzle</option>
+        <option value="estratégia">Estratégia</option>
+      </select>
+      <button id="reloadGames">Recarregar Jogos</button>
+    </div>
+
+    <div id="loadingScreen" style="display:none; text-align:center; margin: 20px 0;">
+      <div class="spinner"></div>
+      <p>Carregando jogos na nuvem...</p>
+    </div>
+
+    <div id="notifications" style="opacity:0; color:#4caf50; text-align:center; margin-bottom: 10px;"></div>
+
+    <h2>Jogos disponíveis</h2>
+    <div id="gamesContainer" class="games-grid"></div>
+  </main>
+
+  <!-- Modal de pagamento -->
+  <div id="paymentModal" class="modal" style="display:none;">
+    <div class="modal-content">
+      <span id="closeModal" class="close">&times;</span>
+      <h2>Pagamento necessário</h2>
+      <p>Para jogar "<span id="gameTitle"></span>", por favor, realize o pagamento.</p>
+      <p id="modalMessage" style="text-align:center; font-weight:600; color:#ccc; margin-bottom:15px;">
+        Você precisa pagar o emulador da nuvem de jogos para continuar.
+      </p>
+      <button id="payButton">Pagar MENSAL R$35,87</button>
+
+      <div id="paymentMethods" style="display:none; text-align:center;">
+        <h3>Pagamento via PIX</h3>
+        <canvas id="pixQRCode" style="margin: 10px auto;"></canvas>
+        <p>Chave PIX GERADA: <span id="pixKey" style="font-weight: bold;"></span></p>
+        <button id="copyPixKeyBtn">Copiar chave PIX</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal de edição de perfil -->
+  <div id="profileModal" class="modal" style="display:none;">
+    <div class="modal-content">
+      <span class="close" id="closeProfileModal">&times;</span>
+      <h2>Editar Perfil</h2>
+      <label for="usernameInput">Nome de usuário:</label>
+      <input type="text" id="usernameInput" placeholder="Digite seu nome..." />
+      <label for="avatarInput">Escolha seu avatar:</label>
+      <input type="file" id="avatarInput" accept="image/*" />
+      <button id="saveProfileBtn">Salvar</button>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-links">
+      <a href="#">Suporte</a>
+      <a href="#">Termos de Uso</a>
+      <a href="#">Política de Privacidade</a>
+    </div>
+    <p>© 2025 Game Drop - Todos os direitos reservados</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.1/build/qrcode.min.js"></script>
+  <script src="games.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>

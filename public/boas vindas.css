@@ -1,0 +1,32 @@
+/* Splash letra B */
+#welcome-screen {
+  position: fixed;
+  inset: 0;
+  background: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  transition: opacity 0.6s ease;
+}
+.b-logo {
+  width: 120px;
+  height: 120px;
+}
+.b-logo path {
+  stroke-dasharray: 400;
+  stroke-dashoffset: 400;
+  stroke: black;
+  stroke-width: 6;
+  fill: none;
+  animation: drawB 1s ease forwards;
+}
+@keyframes drawB {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+#welcome-screen.hidden {
+  opacity: 0;
+  pointer-events: none;
+}

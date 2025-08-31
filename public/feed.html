@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Blinkly Chat Online</title>
+    <link rel="icon" href="https://i.imgur.com/your-favicon-here.png" type="image/png" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <link rel="stylesheet" href="feed.css" />
+</head>
+<body>
+    <div class="app-wrapper" id="app-wrapper">
+        <div class="main-sidebar-nav">
+            <div class="main-nav-header">
+                <i class="fas fa-satellite-dish server-icon-main"></i>
+            </div>
+            <div class="server-icons-list">
+                <div class="server-icon active" data-view="friends-home"><i class="fas fa-home"></i></div>
+                <hr class="nav-divider" />
+                <div class="server-icon" data-view="community"><i class="fas fa-users"></i></div>
+                <div class="server-icon" data-view="minigames" onclick="window.location.href='minigames.html';"><i class="fas fa-gamepad"></i></div>
+                <div class="server-icon" data-view="cinema" onclick="window.location.href='cinema.html';"><i class="fas fa-film"></i></div>
+                <div class="server-icon store-icon" data-view="store" onclick="window.location.href='loja.html';"><i class="fas fa-store"></i></div>
+            </div>
+
+            <div class="user-profile-widget" id="open-profile-modal-btn">
+                <div class="user-avatar" id="user-avatar-img" style="background-image: url('https://www.gravatar.com/avatar/?d=retro&s=200');"></div>
+                <span class="user-name" id="display-username">Carregando...</span>
+                <button class="logout-btn-widget" id="logout-btn"><i class="fas fa-sign-out-alt"></i> Sair</button>
+            </div>
+        </div>
+
+        <aside class="left-sidebar">
+            <div class="sidebar-header">
+                <input type="text" placeholder="Encontrar ou iniciar uma conversa" class="search-input" />
+                <i class="fas fa-search search-icon"></i>
+            </div>
+
+            <div class="sidebar-content-scrollable">
+                <div class="friends-section active" id="friends-section">
+                    <div class="friends-nav-buttons">
+                        <button class="friends-button active" data-filter="all"><i class="fas fa-users"></i> Amigos</button>
+                        <button class="friends-button" data-filter="online"><i class="fas fa-circle green-dot"></i> Online</button>
+                        <button class="friends-button" data-filter="pending" id="show-requests-btn"><i class="fas fa-user-clock"></i> Pendente</button>
+                        <button class="friends-button" data-filter="blocked"><i class="fas fa-user-slash"></i> Bloqueado</button>
+                    </div>
+                    <button class="add-friend-button" id="open-add-friend-modal-btn"><i class="fas fa-user-plus"></i> Adicionar Amigo</button>
+                    <div class="dm-list" id="dm-list-container"></div>
+                </div>
+
+                <div class="categories-section" id="categories-section">
+                    <div class="category-block">
+                        <h3 class="category-title"><i class="fas fa-users"></i> Comunidade</h3>
+                        <ul class="rooms-list">
+                            <li class="room-item active" data-room-id="publico"># Geral</li>
+                            <li class="room-item" data-room-id="programacao"># Programação</li>
+                            <li class="room-item" data-room-id="musica"># Música</li>
+                            <li class="room-item" data-room-id="arte-e-design"># Arte & Design</li>
+                        </ul>
+                    </div>
+
+                    <div class="category-block">
+                        <h3 class="category-title"><i class="fas fa-gamepad"></i> Games</h3>
+                        <ul class="rooms-list">
+                            <li class="room-item" data-room-id="amongus"># Among Us</li>
+                            <li class="room-item" data-room-id="minecraft"># Minecraft</li>
+                            <li class="room-item" data-room-id="lol"># League of Legends</li>
+                            <li class="room-item" data-room-id="fortnite"># Fortnite</li>
+                        </ul>
+                    </div>
+                    <div class="category-block private-rooms-section">
+                        <h3 class="category-title"><i class="fas fa-lock"></i> Salas Privadas</h3>
+                        <div class="private-room-actions">
+                            <button id="create-room-btn" class="private-action-btn"><i class="fas fa-plus"></i> Criar Sala</button>
+                            <button id="join-room-btn" class="private-action-btn"><i class="fas fa-door-open"></i> Entrar</button>
+                        </div>
+                        <ul class="rooms-list" id="private-rooms-list"></ul>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <main class="chat-main-area">
+            <div class="chat-header-main">
+                <h3 class="current-room-title" id="chat-room-name">Selecione uma sala ou amigo</h3>
+                <div class="chat-header-actions">
+                    <span class="online-users-indicator"><span id="online-users-count">0</span> Online</span>
+                    <button class="action-btn"><i class="fas fa-phone-alt"></i></button>
+                    <button class="action-btn" id="open-settings-modal-btn"><i class="fas fa-cog"></i></button>
+                </div>
+            </div>
+            <div class="chat-messages-container" id="chat-messages"></div>
+            <div class="chat-input-wrapper">
+                <input type="text" id="chat-input" placeholder="Selecione uma sala para conversar..." disabled />
+                <button class="send-message-btn" id="send-btn" disabled><i class="fas fa-paper-plane"></i> Enviar</button>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modais -->
+
+    <div class="modal-overlay" id="profile-edit-modal">
+        <div class="modal-content">
+            <button class="close-modal-btn" id="close-profile-modal-btn">&times;</button>
+            <h2>Editar Perfil</h2>
+            <div class="profile-avatar-preview-container">
+                <img src="https://www.gravatar.com/avatar/?d=retro&s=200" alt="Avatar do Usuário" class="profile-avatar-preview" id="modal-avatar-preview" />
+                <label for="avatar-upload" class="avatar-upload-label"><i class="fas fa-camera"></i> Mudar Avatar</label>
+                <input type="file" id="avatar-upload" accept="image/*" style="display: none;" />
+            </div>
+            <div class="input-group">
+                <label for="profile-username-input">Nome de Usuário</label>
+                <input type="text" id="profile-username-input" placeholder="Seu nome de usuário" />
+            </div>
+            <button class="save-profile-btn" id="save-profile-btn">Salvar Alterações</button>
+            <p id="profile-message" class="profile-message"></p>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="create-room-modal" style="display:none;">
+        <div class="modal-content">
+            <button class="close-modal-btn" id="close-create-room-btn">&times;</button>
+            <h2>Criar Nova Sala</h2>
+            <div class="input-group">
+                <label for="new-room-name">Nome da Sala</label>
+                <input type="text" id="new-room-name" placeholder="Ex: Galera do Among Us" />
+            </div>
+            <button id="confirm-create-room-btn">Criar Sala Privada</button>
+            <p id="create-room-message" class="modal-message"></p>
+            <p id="generated-room-code" class="modal-code"></p>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="join-room-modal" style="display:none;">
+        <div class="modal-content">
+            <button class="close-modal-btn" id="close-join-room-btn">&times;</button>
+            <h2>Entrar em Sala Privada</h2>
+            <div class="input-group">
+                <label for="join-room-code">Código da Sala</label>
+                <input type="text" id="join-room-code" placeholder="Digite o código aqui" />
+            </div>
+            <button id="confirm-join-room-btn">Entrar</button>
+            <p id="join-room-message" class="modal-message"></p>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="add-friend-modal" style="display:none;">
+        <div class="modal-content">
+            <button class="close-modal-btn" id="close-add-friend-modal-btn">&times;</button>
+            <h2>Adicionar Amigo</h2>
+            <div class="input-group">
+                <label for="friend-username-search">Nome de Usuário</label>
+                <input type="text" id="friend-username-search" placeholder="Buscar por nome de usuário" />
+            </div>
+            <button id="search-friend-btn">Buscar</button>
+            <p id="search-result-message" class="modal-message"></p>
+            <div id="found-user-profile" style="display:none;">
+                <div class="user-profile-found">
+                    <img id="found-user-avatar" class="user-profile-found-avatar" src="" />
+                    <span id="found-user-name" class="user-profile-found-name"></span>
+                </div>
+                <button id="send-friend-request-btn" class="send-request-btn">Enviar Solicitação</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="friend-requests-modal" style="display:none;">
+        <div class="modal-content">
+            <button class="close-modal-btn" id="close-friend-requests-modal-btn">&times;</button>
+            <h2>Solicitações Pendentes</h2>
+            <div id="friend-requests-list" class="friend-requests-list">
+                <p id="no-requests-message" class="modal-message">Nenhuma solicitação pendente.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="settings-modal" style="display: none;">
+        <div class="modal-content">
+            <button class="close-modal-btn" id="close-settings-modal-btn">&times;</button>
+            <h2>Configurações</h2>
+            <div class="settings-section">
+                <h3>Aparência</h3>
+                <div class="setting-item">
+                    <label for="theme-select">Tema</label>
+                    <select id="theme-select">
+                        <option value="dark">Escuro</option>
+                        <option value="light">Claro</option>
+                    </select>
+                </div>
+            </div>
+            <div class="settings-section">
+                <h3>Notificações</h3>
+                <div class="setting-item">
+                    <label for="notification-toggle">Ativar Notificações</label>
+                    <label class="switch">
+                        <input type="checkbox" id="notification-toggle" checked />
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+            </div>
+            <div class="settings-section">
+                <h3>Sua Conta</h3>
+                <button class="logout-btn-modal" id="logout-btn-modal"><i class="fas fa-sign-out-alt"></i> Sair</button>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="feed.js"></script>
+</body>
+</html>

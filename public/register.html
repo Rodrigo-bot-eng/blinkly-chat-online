@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="criar.css">
+    <title>Blinkly - Criar Conta</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <main class="signup-container">
+        <div class="logo">𝘽𝙡𝙞𝙣𝙠𝙡𝙮</div>
+        <h2>Criar Conta</h2>
+        <form id="signupForm">
+            <input type="text" id="signupUsername" name="signup_username_field" placeholder="Nome de Usuário" required autocomplete="username">
+            <input type="email" id="signupEmail" name="signup_email_field" placeholder="E-mail" required autocomplete="off">
+            <input type="password" id="signupPassword" name="signup_password_field" placeholder="Senha (mínimo 6 caracteres)" required autocomplete="new-password">
+            <input type="password" id="confirmPassword" name="confirm_password_field" placeholder="Confirmar Senha" required autocomplete="new-password">
+            <button type="submit">Criar Conta</button>
+        </form>
+        <p id="register-auth-message" style="color: red; margin-top: 15px; text-align: center; font-weight: bold;"></p>
+        <p>Já tem uma conta? <a href="index.html">Entrar</a></p>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Blinkly. Todos os direitos reservados.</p>
+    </footer>
+
+    <!-- Apenas um script de importação para o auth.js -->
+    <script type="module" src="auth.js"></script>
+</body>
+</html>
