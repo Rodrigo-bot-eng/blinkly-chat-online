@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Blinky Accessories — Loja</title>
+  <link rel="stylesheet" href="acess.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Header / Navbar -->
+  <header class="header">
+    <div class="container nav">
+      <a class="logo" href="#home">
+        <span class="logo-mark" aria-hidden="true"></span>
+        <span>Blink Accessories</span>
+      </a>
+<nav class="navlinks" aria-label="Categorias">
+  <a class="chip active" href="index.html">Todos</a>
+  <a class="chip" href="tenis.html">Tênis</a>
+  <a class="chip" href="./fones/entrada.html">Fones</a>
+  <a class="chip" href="perifericos.html">Periféricos de PC</a>
+  <a class="chip" href="./videogame/controleps4.html">Consoles</a>
+</nav>
+
+      <div class="search">
+        <svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M21 21l-4.3-4.3M10.5 18a7.5 7.5 0 1 1 0-15 7.5 7.5 0 0 1 0 15Z" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        <input id="searchInput" type="search" placeholder="Buscar produto..." />
+      </div>
+
+      <button id="openCart" class="cart-btn" aria-label="Abrir carrinho">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M6 6h15l-1.5 9h-12L5 3H2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span id="cartCount" class="cart-count">0</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Hero Banner -->
+  <section id="home" class="hero">
+    <div class="container hero-grid">
+      <div class="hero-left">
+        <h1>Seu setup mais estiloso começa aqui</h1>
+        <p>Compre tênis, fones e periféricos de PC com entrega rápida e pagamento seguro.</p>
+        <div class="hero-cta">
+          <a href="#produtos" class="btn btn-primary">Ver produtos</a>
+          <a href="#perguntas" class="btn btn-ghost">Dúvidas comuns</a>
+        </div>
+        <ul class="hero-badges">
+          <li>✓ Frete para todo o Brasil</li>
+          <li>✓ 12x no cartão</li>
+          <li>✓ Pix com 5% off</li>
+        </ul>
+      </div>
+      <div class="hero-right">
+        <div class="card-gradient"></div>
+        <img src="https://images.unsplash.com/photo-1520975916090-3105956dac38?q=80&w=1200&auto=format&fit=crop" alt="Produtos eletrônicos e acessórios" />
+      </div>
+    </div>
+  </section>
+
+  <!-- Produtos -->
+  <main id="produtos" class="container">
+    <div class="section-head">
+      <h2>Produtos em destaque</h2>
+      <p>Selecione uma categoria acima ou use a busca.</p>
+    </div>
+
+    <div id="productsGrid" class="grid"></div>
+  </main>
+
+  <!-- FAQ -->
+  <section id="perguntas" class="container faq">
+    <h2>Perguntas frequentes</h2>
+    <details>
+      <summary>Como funciona o frete?</summary>
+      <p>O valor é calculado no checkout conforme CEP. Em média, 3 a 7 dias úteis nas capitais.</p>
+    </details>
+    <details>
+      <summary>Quais formas de pagamento aceitam?</summary>
+      <p>Pix, cartão de crédito (até 12x) e boleto bancário.</p>
+    </details>
+    <details>
+      <summary>Posso trocar um produto?</summary>
+      <p>Sim. Você tem até 7 dias corridos após o recebimento para solicitar troca/devolução.</p>
+    </details>
+  </section>
+
+  <!-- Drawer Carrinho -->
+  <aside id="cartDrawer" class="drawer" aria-hidden="true" aria-labelledby="drawerTitle" role="dialog">
+    <div class="drawer-panel">
+      <header class="drawer-header">
+        <h3 id="drawerTitle">Seu carrinho</h3>
+        <button id="closeCart" class="icon-btn" aria-label="Fechar carrinho">×</button>
+      </header>
+
+      <div id="cartItems" class="drawer-body"></div>
+
+      <footer class="drawer-footer">
+        <div class="totals">
+          <div><span>Subtotal</span><strong id="subtotal">R$ 0,00</strong></div>
+          <div><span>Descontos</span><strong id="discounts">R$ 0,00</strong></div>
+          <div class="total-line"><span>Total</span><strong id="total">R$ 0,00</strong></div>
+        </div>
+        <button id="goCheckout" class="btn btn-primary btn-full">Finalizar compra</button>
+      </footer>
+    </div>
+    <div class="drawer-backdrop"></div>
+  </aside>
+
+  <!-- Checkout -->
+  <section id="checkout" class="checkout container" hidden>
+    <h2>Finalizar compra</h2>
+    <form id="checkoutForm" class="checkout-grid" autocomplete="on">
+      <div class="card">
+        <h3>Dados do cliente</h3>
+        <div class="field"><label>Nome completo</label><input name="nome" required /></div>
+        <div class="field"><label>E-mail</label><input type="email" name="email" required /></div>
+        <div class="field"><label>Telefone</label><input type="tel" name="telefone" placeholder=\"(11) 99999-9999\" /></div>
+      </div>
+
+      <div class="card">
+        <h3>Endereço</h3>
+        <div class="field"><label>CEP</label><input name="cep" required /></div>
+        <div class="field"><label>Rua</label><input name="rua" required /></div>
+        <div class="field-row">
+          <div class="field"><label>Número</label><input name="numero" required /></div>
+          <div class="field"><label>Complemento</label><input name="complemento" /></div>
+        </div>
+        <div class="field-row">
+          <div class="field"><label>Bairro</label><input name="bairro" required /></div>
+          <div class="field"><label>Cidade</label><input name="cidade" required /></div>
+          <div class="field"><label>UF</label><input name="uf" maxlength="2" required /></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Pagamento</h3>
+        <div class="field"><label><input type="radio" name="pgto" value="pix" checked /> Pix <small>(5% de desconto)</small></label></div>
+        <div class="field"><label><input type="radio" name="pgto" value="cartao" /> Cartão de crédito</label></div>
+        <div class="field"><label><input type="radio" name="pgto" value="boleto" /> Boleto bancário</label></div>
+        <div id="paymentExtra" class="payment-extra"></div>
+      </div>
+
+      <div class="card order-summary">
+        <h3>Resumo do pedido</h3>
+        <div id="orderItems" class="mini-list"></div>
+        <div class="order-total"><span>Total</span><strong id="checkoutTotal">R$ 0,00</strong></div>
+        <button class="btn btn-primary btn-full" type="submit">Confirmar pedido</button>
+      </div>
+    </form>
+
+    <div id="orderSuccess" class="success" hidden>
+      <div class="success-card">
+        <h3>Pedido confirmado! 🎉</h3>
+        <p>Enviamos os detalhes para o seu e-mail. Código do pedido: <strong id="orderCode"></strong></p>
+        <a href="#home" class="btn">Voltar para a loja</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div>
+        <div class="logo"><span class="logo-mark"></span><span>Blink Accessories</span></div>
+        <p class="muted">Acessórios que combinam com você.</p>
+      </div>
+      <nav class="footer-links">
+        <a href="#produtos">Produtos</a>
+        <a href="#perguntas">Perguntas</a>
+        <a href="#checkout">Checkout</a>
+      </nav>
+      <small class="muted">© 2025 Blink Accessories — Projeto demonstrativo.</small>
+    </div>
+  </footer>
+
+  <script src="acess.js"></script>
+</body>
+</html>

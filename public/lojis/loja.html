@@ -5,47 +5,52 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>UltraStore</title>
   <script src="https://cdn.tailwindcss.com"></script>
-
-  <!-- Swiper CSS -->
   <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+  <script src="https://unpkg.com/lucide@latest"></script> <!-- Ícones Lucide -->
 
   <style>
-    .nav-link { @apply text-white/80 hover:text-white transition-colors; }
-    .btn-primary { @apply px-4 py-2 rounded-2xl bg-fuchsia-500/20 hover:bg-fuchsia-500/30 ring-1 ring-fuchsia-300/30 shadow shadow-fuchsia-500/20; }
-    .btn-ghost { @apply px-4 py-2 rounded-2xl bg-white/10 hover:bg-white/20 ring-1 ring-white/15; }
-    .neon { box-shadow: 0 0 0 1px rgba(255,255,255,0.1), 0 0 40px rgba(236, 72, 153, 0.15), inset 0 0 40px rgba(59, 130, 246, 0.06); }
-    .animate-bgshift { animation: bgshift 14s ease-in-out infinite alternate; }
-    .animate-shimmer { background-size: 200% 100%; animation: shimmer 4s linear infinite; }
+    .nav-link { @apply text-white/70 hover:text-fuchsia-400 transition-colors; }
+    .btn-primary { @apply px-6 py-3 rounded-xl bg-gradient-to-r from-fuchsia-500 to-purple-600 hover:from-fuchsia-400 hover:to-purple-500 shadow-lg shadow-fuchsia-500/40 transition-all flex items-center gap-2; }
+    .btn-ghost { @apply px-6 py-3 rounded-xl bg-white/10 hover:bg-white/20 ring-1 ring-white/20 transition flex items-center gap-2; }
+    .neon-card { @apply relative overflow-hidden rounded-2xl bg-white/5 border border-fuchsia-400/20 shadow-lg shadow-fuchsia-500/20 backdrop-blur; }
+    .neon-card::after { content:""; @apply absolute inset-0 bg-gradient-to-tr from-fuchsia-500/10 to-cyan-500/10 opacity-0 transition; }
+    .neon-card:hover::after { opacity: 100; }
     .animate-float { animation: float 6s ease-in-out infinite; }
-    @keyframes shimmer { 0% { background-position: 0% 50%; } 100% { background-position: 200% 50%; } }
-    @keyframes bgshift { 0% { filter: hue-rotate(0deg) saturate(1); } 100% { filter: hue-rotate(20deg) saturate(1.4); } }
-    @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-8px); } }
+    @keyframes float { 0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)} }
   </style>
 </head>
-<body class="min-h-screen w-full text-white bg-black/95 overflow-x-hidden">
+<body class="min-h-screen w-full text-white bg-gradient-to-br from-black via-gray-900 to-black overflow-x-hidden">
 
-  <!-- BACKGROUND FX -->
+  <!-- BG FX -->
   <div class="pointer-events-none fixed inset-0 -z-10">
-    <div class="absolute inset-0 opacity-60 animate-bgshift" style="background: radial-gradient(1200px 600px at 50% 40%, rgba(0,255,210,.25), transparent 60%), radial-gradient(800px 400px at 20% 10%, rgba(120,0,255,.20), transparent 60%), radial-gradient(800px 400px at 80% 90%, rgba(255,0,120,.18), transparent 60%)"></div>
-    <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0,transparent_35%,rgba(255,255,255,0.03)_36%,transparent_37%)] [background-size:12px_12px]"></div>
+    <div class="absolute inset-0 opacity-50" style="background: radial-gradient(1000px 500px at 50% 40%, rgba(255,0,150,.2), transparent 70%), radial-gradient(800px 400px at 20% 80%, rgba(0,255,255,.15), transparent 70%)"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0,transparent_35%,rgba(255,255,255,0.04)_36%,transparent_37%)] [background-size:12px_12px]"></div>
   </div>
 
   <!-- NAVBAR -->
-  <header class="sticky top-0 z-50 backdrop-blur supports-[backdrop-filter]:bg-black/40 border-b border-white/10">
+  <header class="sticky top-0 z-50 backdrop-blur-md bg-black/50 border-b border-fuchsia-400/10">
     <div class="mx-auto max-w-7xl px-4 py-3 flex items-center justify-between">
-      <a href="#home" class="flex items-center gap-2 group">
-        <div class="h-8 w-8 rounded-xl bg-white/10 ring-2 ring-fuchsia-500/50 shadow-[0_0_24px_rgba(236,72,153,.45)] animate-pulse"></div>
-        <span class="text-lg font-bold tracking-wider group-hover:tracking-[.2em] transition-all">
-          ULTRA<span class="text-fuchsia-400">STORE</span>
+      <a href="#home" class="flex items-center gap-3 group">
+        <div class="h-9 w-9 rounded-xl bg-fuchsia-600/30 ring-2 ring-fuchsia-500 shadow-[0_0_20px_rgba(236,72,153,.6)] animate-pulse"></div>
+        <span class="text-xl font-extrabold tracking-widest group-hover:text-fuchsia-400 transition-all">
+          ULTRA<span class="text-cyan-400">STORE</span>
         </span>
       </a>
-      <nav class="hidden md:flex items-center gap-6 text-sm">
-        <a href="lojagamesblinkly.html" class="nav-link">Games</a>
-        <a href="roupas.html" class="nav-link">Roupas</a>
-        <a href="acessorios.html" class="nav-link">Acessórios</a>
-        <a href="#ofertas" class="nav-link">Ofertas</a>
-        <a href="#contato" class="px-4 py-2 rounded-2xl bg-white/10 hover:bg-white/20 transition-all shadow-lg shadow-fuchsia-500/10">
-          Contato
+      <nav class="hidden md:flex items-center gap-8 text-sm font-semibold">
+        <a href="../lojablinky/lojagamesblinkly.html" class="nav-link flex items-center gap-2">
+          <i data-lucide="gamepad-2" class="w-5 h-5"></i> Games
+        </a>
+        <a href="../roupas.html" class="nav-link flex items-center gap-2">
+          <i data-lucide="shirt" class="w-5 h-5"></i> Roupas
+        </a>
+        <a href="../acessorios/acessorios.html" class="nav-link flex items-center gap-2">
+          <i data-lucide="headphones" class="w-5 h-5"></i> Acessórios
+        </a>
+        <a href="#ofertas" class="nav-link flex items-center gap-2">
+          <i data-lucide="flame" class="w-5 h-5 text-fuchsia-400"></i> Ofertas
+        </a>
+        <a href="#contato" class="px-5 py-2 rounded-xl bg-fuchsia-500/20 hover:bg-fuchsia-500/40 transition-all shadow-md flex items-center gap-2">
+          <i data-lucide="mail" class="w-5 h-5"></i> Contato
         </a>
       </nav>
     </div>
@@ -53,102 +58,108 @@
 
   <!-- HERO -->
   <section id="home" class="relative">
-    <div class="mx-auto max-w-7xl px-4 py-24 md:py-32 grid md:grid-cols-2 gap-10 items-center">
+    <div class="mx-auto max-w-7xl px-4 py-24 md:py-32 grid md:grid-cols-2 gap-12 items-center">
       <div>
-        <h1 class="text-4xl md:text-6xl font-extrabold leading-tight">
-          Sua loja multiuniverso com
-          <span class="block text-transparent bg-clip-text bg-gradient-to-r from-fuchsia-400 via-cyan-400 to-violet-400 animate-shimmer">
-            efeitos insanos & experiência cinematográfica
+        <h1 class="text-5xl md:text-6xl font-extrabold leading-tight">
+          Bem-vindo ao universo gamer da
+          <span class="block text-transparent bg-clip-text bg-gradient-to-r from-fuchsia-400 via-cyan-400 to-violet-500">
+            UltraStore
           </span>
         </h1>
-        <p class="mt-5 text-white/80 max-w-prose">
-          Um ecossistema onde games, roupas e acessórios se encontram com animações
-          responsivas, microinterações e navegação fluida. Cada clique vira uma cena.
+        <p class="mt-6 text-white/70 text-lg max-w-prose">
+          Onde <span class="text-fuchsia-400 font-semibold">jogos, roupas</span> e <span class="text-cyan-400 font-semibold">acessórios</span> se unem em uma experiência futurista. Seu setup nunca mais será o mesmo.
         </p>
-        <div class="mt-8 flex flex-wrap gap-3">
-          <a href="#games" class="btn-primary">Explorar Games</a>
-          <a href="#fashion" class="btn-ghost">Ver Roupas</a>
-          <a href="#acessories" class="btn-ghost">Acessórios</a>
+        <div class="mt-8 flex flex-wrap gap-4">
+          <a href="#games" class="btn-primary"><i data-lucide="gamepad-2" class="w-5 h-5"></i> Explorar Jogos</a>
+          <a href="#fashion" class="btn-ghost"><i data-lucide="shirt" class="w-5 h-5"></i> Roupas Futuristas</a>
+          <a href="#acessories" class="btn-ghost"><i data-lucide="headphones" class="w-5 h-5"></i> Acessórios Tech</a>
         </div>
       </div>
       <div class="relative">
-        <div class="aspect-[4/3] rounded-3xl overflow-hidden ring-1 ring-white/10 shadow-2xl neon">
-          <img src="https://picsum.photos/seed/hero/1600/1200" class="w-full h-full object-cover scale-105 hover:scale-100 transition-transform duration-700" alt="Hero" />
+        <div class="aspect-[4/3] rounded-3xl overflow-hidden ring-1 ring-fuchsia-500/30 shadow-2xl">
+          <img src="https://cdn.pixabay.com/photo/2021/01/05/11/05/gaming-5889922_1280.jpg" class="w-full h-full object-cover scale-110 hover:scale-100 transition-transform duration-700" alt="Setup Gamer" />
         </div>
-        <div class="absolute -bottom-6 -left-6 h-28 w-28 rounded-3xl bg-fuchsia-500/20 blur-2xl animate-float"></div>
-        <div class="absolute -top-6 -right-6 h-24 w-24 rounded-3xl bg-cyan-400/20 blur-2xl animate-float [animation-delay:200ms]"></div>
+        <div class="absolute -bottom-6 -left-6 h-28 w-28 rounded-3xl bg-fuchsia-500/30 blur-2xl animate-float"></div>
+        <div class="absolute -top-6 -right-6 h-24 w-24 rounded-3xl bg-cyan-400/30 blur-2xl animate-float [animation-delay:200ms]"></div>
       </div>
     </div>
   </section>
 
-  <!-- CARROSSEL 3D CATEGORIAS -->
-  <section id="categorias" class="py-16">
+  <!-- CATEGORIAS -->
+  <section id="categorias" class="py-20">
     <div class="mx-auto max-w-7xl px-4">
-      <h2 class="text-3xl md:text-4xl font-bold mb-8 text-center">Explore os universos</h2>
+      <h2 class="text-4xl font-extrabold mb-12 text-center flex items-center justify-center gap-3">
+        <i data-lucide="sparkles" class="w-7 h-7 text-fuchsia-400"></i> Explore os universos
+      </h2>
       <div class="swiper mySwiper">
         <div class="swiper-wrapper">
-          <div class="swiper-slide rounded-2xl overflow-hidden shadow-lg bg-white/5 border border-white/10 backdrop-blur transition-transform duration-300 hover:scale-105">
-            <img src="https://picsum.photos/seed/games/1200/800" class="w-full h-60 object-cover" />
-            <div class="p-4">
+          <!-- GAMES -->
+          <div class="swiper-slide neon-card">
+            <img src="https://cdn.pixabay.com/photo/2020/07/10/14/20/controller-5393248_1280.jpg" class="w-full h-60 object-cover" />
+            <div class="p-5">
               <span class="text-xs uppercase text-fuchsia-400">Novidades</span>
-              <h3 class="text-xl font-bold mt-1">Games</h3>
-              <p class="text-white/70 text-sm mt-1">Lançamentos, clássicos e edições especiais.</p>
+              <h3 class="text-2xl font-bold mt-1 flex items-center gap-2"><i data-lucide="gamepad-2" class="w-6 h-6"></i> Games</h3>
+              <p class="text-white/70 mt-2">Lançamentos, clássicos e edições especiais.</p>
             </div>
           </div>
-          <div class="swiper-slide rounded-2xl overflow-hidden shadow-lg bg-white/5 border border-white/10 backdrop-blur transition-transform duration-300 hover:scale-105">
-            <img src="https://picsum.photos/seed/fashion/1200/800" class="w-full h-60 object-cover" />
-            <div class="p-4">
-              <span class="text-xs uppercase text-fuchsia-400">Coleção</span>
-              <h3 class="text-xl font-bold mt-1">Roupas</h3>
-              <p class="text-white/70 text-sm mt-1">Streetwear, techwear e coleções cápsula.</p>
+          <!-- ROUPAS -->
+          <div class="swiper-slide neon-card">
+            <img src="https://cdn.pixabay.com/photo/2017/02/20/15/28/hoodie-2082081_1280.jpg" class="w-full h-60 object-cover" />
+            <div class="p-5">
+              <span class="text-xs uppercase text-cyan-400">Coleção</span>
+              <h3 class="text-2xl font-bold mt-1 flex items-center gap-2"><i data-lucide="shirt" class="w-6 h-6"></i> Roupas</h3>
+              <p class="text-white/70 mt-2">Streetwear gamer e techwear futurista.</p>
             </div>
           </div>
-          <div class="swiper-slide rounded-2xl overflow-hidden shadow-lg bg-white/5 border border-white/10 backdrop-blur transition-transform duration-300 hover:scale-105">
-            <img src="https://picsum.photos/seed/acess/1200/800" class="w-full h-60 object-cover" />
-            <div class="p-4">
-              <span class="text-xs uppercase text-fuchsia-400">Populares</span>
-              <h3 class="text-xl font-bold mt-1">Acessórios</h3>
-              <p class="text-white/70 text-sm mt-1">Headsets, teclados, óculos e mais.</p>
+          <!-- ACESSÓRIOS -->
+          <div class="swiper-slide neon-card">
+            <img src="https://cdn.pixabay.com/photo/2016/11/29/13/12/keyboard-1869303_1280.jpg" class="w-full h-60 object-cover" />
+            <div class="p-5">
+              <span class="text-xs uppercase text-violet-400">Setup</span>
+              <h3 class="text-2xl font-bold mt-1 flex items-center gap-2"><i data-lucide="headphones" class="w-6 h-6"></i> Acessórios</h3>
+              <p class="text-white/70 mt-2">Headsets, teclados, monitores e mais.</p>
             </div>
           </div>
         </div>
-        <!-- Pagination -->
         <div class="swiper-pagination"></div>
       </div>
-    </section>
+    </div>
+  </section>
 
   <!-- FOOTER -->
-  <footer id="contato" class="border-t border-white/10">
-    <div class="mx-auto max-w-7xl px-4 py-12 grid md:grid-cols-4 gap-8 text-sm">
+  <footer id="contato" class="border-t border-fuchsia-400/20 bg-black/50">
+    <div class="mx-auto max-w-7xl px-4 py-12 grid md:grid-cols-4 gap-10 text-sm">
       <div>
-        <div class="text-lg font-bold">ULTRASTORE</div>
-        <p class="text-white/70 mt-2">A loja onde cada categoria é um universo. Visual futurista, experiência sem atrito.</p>
+        <div class="text-xl font-extrabold text-fuchsia-400">ULTRASTORE</div>
+        <p class="text-white/70 mt-2">Sua loja gamer com estilo cyberpunk. Produtos exclusivos e experiência imersiva.</p>
       </div>
       <div>
         <div class="font-semibold mb-2">Categorias</div>
-        <ul class="space-y-1 text-white/70">
-          <li><a href="#games" class="hover:text-white">Games</a></li>
-          <li><a href="#fashion" class="hover:text-white">Roupas</a></li>
-          <li><a href="#acessories" class="hover:text-white">Acessórios</a></li>
+        <ul class="space-y-2 text-white/70">
+          <li><a href="#games" class="hover:text-fuchsia-400 flex items-center gap-2"><i data-lucide="gamepad-2" class="w-4 h-4"></i> Games</a></li>
+          <li><a href="#fashion" class="hover:text-cyan-400 flex items-center gap-2"><i data-lucide="shirt" class="w-4 h-4"></i> Roupas</a></li>
+          <li><a href="#acessories" class="hover:text-violet-400 flex items-center gap-2"><i data-lucide="headphones" class="w-4 h-4"></i> Acessórios</a></li>
         </ul>
       </div>
       <div>
         <div class="font-semibold mb-2">Suporte</div>
-        <ul class="space-y-1 text-white/70">
-          <li>Atendimento</li>
-          <li>Trocas & Devoluções</li>
-          <li>Frete</li>
+        <ul class="space-y-2 text-white/70">
+          <li><i data-lucide="help-circle" class="inline w-4 h-4 mr-1"></i> Atendimento</li>
+          <li><i data-lucide="refresh-cw" class="inline w-4 h-4 mr-1"></i> Trocas & Devoluções</li>
+          <li><i data-lucide="truck" class="inline w-4 h-4 mr-1"></i> Frete</li>
         </ul>
       </div>
       <div>
         <div class="font-semibold mb-2">Newsletter</div>
         <div class="flex gap-2">
-          <input placeholder="Seu e-mail" class="w-full px-3 py-2 rounded-xl bg-white/10 ring-1 ring-white/15 focus:outline-none focus:ring-white/40 placeholder:text-white/40" />
-          <button class="px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20">OK</button>
+          <input placeholder="Seu e-mail" class="w-full px-3 py-2 rounded-xl bg-white/10 ring-1 ring-white/15 focus:outline-none focus:ring-fuchsia-400 placeholder:text-white/40" />
+          <button class="px-4 py-2 rounded-xl bg-fuchsia-500/30 hover:bg-fuchsia-500/50 flex items-center gap-2">
+            <i data-lucide="send" class="w-4 h-4"></i> OK
+          </button>
         </div>
       </div>
     </div>
-    <div class="border-t border-white/10 text-xs text-white/60 py-4 text-center">
+    <div class="border-t border-fuchsia-400/10 text-xs text-white/60 py-4 text-center">
       © 2025 UltraStore. Todos os direitos reservados.
     </div>
   </footer>
@@ -162,9 +173,9 @@
       centeredSlides: true,
       slidesPerView: 'auto',
       coverflowEffect: {
-        rotate: 30,
+        rotate: 25,
         stretch: 0,
-        depth: 200,
+        depth: 180,
         modifier: 1,
         slideShadows: true,
       },
@@ -173,10 +184,13 @@
         clickable: true,
       },
       autoplay: {
-        delay: 2500,
+        delay: 2800,
         disableOnInteraction: false,
       },
     });
+
+    // Ativar ícones Lucide
+    lucide.createIcons();
   </script>
 </body>
 </html>

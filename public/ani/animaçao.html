@@ -2,43 +2,69 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Cine Blinkly Intro</title>
-  <link rel="stylesheet" href="animaçao.css">
+  <title>Meu Vídeo</title>
+  <style>
+    body {
+      margin: 0;
+      background: black;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    video {
+      width: 100%;
+      height: auto;
+      max-height: 100vh;
+    }
+    #overlay {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.8);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      font-size: 24px;
+      cursor: pointer;
+      z-index: 10;
+      display: none; /* começa escondido */
+    }
+  </style>
 </head>
 <body>
-  <!-- Vídeo de introdução -->
-  <!-- Vídeo de introdução -->
-  <video id="introVideo" autoplay playsinline>
-    <source src="https://limewire-filesharing-production.b61cdfd8cf17f52ddc020162e738eb5d.r2.cloudflarestorage.com/buckets/d195fab9-5f1f-4168-945d-6b533caaa283/8f22a409-6d42-4a1f-9e60-d70df4e40d63?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20250831T062423Z&X-Amz-SignedHeaders=host&X-Amz-Credential=a1868571dfad6d4fe293ee5b945a0ad5%2F20250831%2Fauto%2Fs3%2Faws4_request&X-Amz-Expires=14400&X-Amz-Signature=daff43fcc666b2e23ec53b7ace00cfbd6c88c92571a2fe736d829048ff7a03e9" type="video/mp4">
-    Seu navegador não suporta vídeos em HTML5.
-  </video>>
-  
+  <div id="overlay">🔊 Clique para ativar o áudio</div>
 
-  <!-- Tela de carregamento (invisível no início) -->
-  <div id="loading">
-    <div class="loader"></div>
-    <p>Carregando...</p>
-  </div>
+  <video id="meuVideo" autoplay>
+    <source src="t.mp4" type="video/mp4">
+    Seu navegador não suporta vídeos HTML5.
+  </video>
 
   <script>
-    const video = document.getElementById("intro-video");
-    const intro = document.getElementById("intro");
-    const loading = document.getElementById("loading");
+    const video = document.getElementById("meuVideo");
+    const overlay = document.getElementById("overlay");
 
-    // Forçar som sempre ativo
+    // Tenta autoplay com áudio ativo
     video.muted = false;
-    video.volume = 1.0;
+    video.play().catch(() => {
+      // Se o navegador bloquear, mostra overlay
+      video.muted = true;
+      video.play();
+      overlay.style.display = "flex";
+    });
 
-    // Quando o vídeo terminar -> mostra carregando
-    video.onended = () => {
-      intro.style.display = "none";
-      loading.style.display = "flex";
+    // Se clicar no overlay, ativa áudio
+    overlay.addEventListener("click", () => {
+      video.muted = false;
+      video.play();
+      overlay.style.display = "none";
+    });
 
-      // Depois de 2s -> redireciona
-      setTimeout(() => {
-        window.location.href = "filminho/filmes.html";
-      }, 2000);
-    };
+    // Quando acabar o vídeo, redireciona
+    video.addEventListener("ended", () => {
+      window.location.href = "../filmes/filmes.html";
+    });
   </script>
 </body>
 </html>
