@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <title>UltraStore | Roupas e Estilo</title>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
+    integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous" />
+  <link rel="stylesheet" type="text/css" href="roupas.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap"
+    rel="stylesheet">
+</head>
+
+<body>
+  <!-- HEADER -->
+  <div class="header">
+    <div class="container">
+      <div class="navbar">
+        <div class="logo">
+          <a href="roupas.html"><img src="images/logo.png" width="140px" alt="RedStore Logo"></a>
+        </div>
+        <nav>
+          <ul id="MenuItems">
+            <li><a href="roupas.html">Início</a></li>
+            <li><a href="products.html">Produtos</a></li>
+            <li><a href="">Sobre</a></li>
+            <li><a href="">Contato</a></li>
+            <li><a href="accountpage.html">Conta</a></li>
+          </ul>
+        </nav>
+        <a href="cart.html"><img src="images/cart.png" width="30px" height="30px" alt="Carrinho"></a>
+        <img src="images/menu.png" class="menu-icon" onclick="menutoggle()" alt="Menu">
+      </div>
+
+      <div class="row">
+        <div class="col-2">
+          <h1>Dê ao seu treino <br> um novo estilo!</h1>
+          <p>O sucesso não é só sobre grandeza, mas sim sobre consistência.<br> Trabalhe duro todos os dias e o
+            resultado virá!</p>
+          <a href="products.html" class="btn">Explorar agora <i class="fas fa-arrow-right"></i></a>
+        </div>
+        <div class="col-2">
+          <img src="images/image1.png" alt="Destaque Moda Fitness">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CATEGORIAS -->
+  <div class="categories">
+    <div class="small-container">
+      <h2 class="title">Categorias em Destaque</h2>
+      <div class="row">
+        <div class="col-3"><img src="images/category-1.jpg" alt="Camisetas"></div>
+        <div class="col-3"><img src="images/category-2.jpg" alt="Tênis"></div>
+        <div class="col-3"><img src="images/category-3.jpg" alt="Acessórios"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PRODUTOS -->
+  <div class="small-container">
+    <h2 class="title">Produtos em Destaque</h2>
+    <div class="row">
+      <div class="col-4">
+        <a href="productdetail.html"><img src="images/product-1.jpg" alt="Camiseta Vermelha"></a>
+        <a href="productdetail.html">
+          <h4>Camiseta Vermelha Estampada</h4>
+        </a>
+        <div class="rating">
+          <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+          <i class="far fa-star"></i><i class="far fa-star"></i>
+        </div>
+        <p>R$ 50,00</p>
+      </div>
+
+      <div class="col-4">
+        <img src="images/product-2.jpg" alt="Tênis Pretos">
+        <h4>Tênis Pretos</h4>
+        <div class="rating">
+          <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+          <i class="fas fa-star"></i><i class="far fa-star"></i>
+        </div>
+        <p>R$ 120,00</p>
+      </div>
+
+      <div class="col-4">
+        <img src="images/product-3.jpg" alt="Calça Cinza">
+        <h4>Calça Cinza</h4>
+        <div class="rating">
+          <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+          <i class="far fa-star"></i><i class="far fa-star"></i>
+        </div>
+        <p>R$ 90,00</p>
+      </div>
+
+      <div class="col-4">
+        <img src="images/product-4.jpg" alt="Camiseta Azul">
+        <h4>Camiseta Azul Estampada</h4>
+        <div class="rating">
+          <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+          <i class="fas fa-star"></i><i class="fas fa-star"></i>
+        </div>
+        <p>R$ 60,00</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- OFERTA -->
+  <div class="offer">
+    <div class="small-container">
+      <div class="row">
+        <div class="col-2">
+          <img src="images/exclusive.png" class="offer-img" alt="Smart Band 4">
+        </div>
+        <div class="col-2">
+          <p>Preço exclusivo somente aqui na RedStore</p>
+          <h1>Smart Band 4</h1>
+          <small>
+            Mais funções, mais estilo e o preço continua acessível. A Smart Band 4 é a escolha perfeita para treinos e
+            estilo de vida saudável.
+          </small>
+          <br>
+          <a href="" class="btn">Comprar Agora <i class="fas fa-shopping-cart"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RODAPÉ -->
+  <div class="footer">
+    <div class="container">
+      <div class="row">
+        <div class="footer-col-1">
+          <h3>Baixe nosso App</h3>
+          <p>Disponível para Android e iOS.</p>
+          <div class="app-logo">
+            <img src="images/play-store.png" alt="Google Play">
+            <img src="images/app-store.png" alt="App Store">
+          </div>
+        </div>
+
+        <div class="footer-col-2">
+          <h3>RedStore</h3>
+          <img src="images/logo.png" alt="RedStore">
+          <p>Nosso propósito é tornar acessíveis os benefícios e prazeres do esporte de forma sustentável.</p>
+        </div>
+
+        <div class="footer-col-3">
+          <h3>Links Úteis</h3>
+          <ul>
+            <li>Cupons</li>
+            <li>Blog</li>
+            <li>Política de Devolução</li>
+            <li>Seja um Afiliado</li>
+          </ul>
+        </div>
+
+        <div class="footer-col-3">
+          <h3>Siga-nos</h3>
+          <ul>
+            <li><i class="fab fa-facebook"></i> Facebook</li>
+            <li><i class="fab fa-twitter"></i> Twitter</li>
+            <li><i class="fab fa-instagram"></i> Instagram</li>
+            <li><i class="fab fa-youtube"></i> YouTube</li>
+          </ul>
+        </div>
+      </div>
+      <hr>
+      <p class="Copyright">© 2025 - Loja RedStore | Todos os direitos reservados</p>
+    </div>
+  </div>
+
+  <!-- JS MENU -->
+  <script>
+    var MenuItems = document.getElementById("MenuItems")
+    MenuItems.style.maxHeight = "0px";
+
+    function menutoggle() {
+      if (MenuItems.style.maxHeight == "0px") {
+        MenuItems.style.maxHeight = "200px"
+      } else {
+        MenuItems.style.maxHeight = "0px";
+      }
+    }
+  </script>
+
+</body>
+
+</html>

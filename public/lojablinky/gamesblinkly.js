@@ -25,5 +25,5 @@ window.addEventListener("scroll", () => {
 // Redirecionamento do botão
 const explorarBtn = document.querySelector(".btn-explorar");
 explorarBtn.addEventListener("click", () => {
-  window.location.href = "princ.html";
+  window.location.href = "../dropgames/princ.html";
 });

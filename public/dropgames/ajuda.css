@@ -1,0 +1,258 @@
+/* Reset e base */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #121212;
+  color: #cceeff;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* Header */
+header {
+  padding: 2rem 1rem 1rem;
+  text-align: center;
+  background: url('1.jpg') no-repeat center center;
+  background-size: cover;
+  box-shadow: 0 3px 15px #00ffe0aa;
+  color: white;
+  position: relative;
+  z-index: 1;
+}
+
+header h1 {
+  font-weight: 700;
+  font-size: 1.8rem;
+  color: white;
+  margin-bottom: 1rem;
+  text-shadow: 0 0 6px #000; /* sombra preta leve para destacar */
+}
+
+#searchInput {
+  width: 100%;
+  max-width: 400px;
+  padding: 12px 15px;
+  border-radius: 15px;
+  border: none;
+  font-size: 1rem;
+  outline: none;
+  transition: box-shadow 0.3s ease;
+}
+
+#searchInput:focus {
+  box-shadow: 0 0 12px #00ffe0;
+}
+
+
+/* FAQ */
+#faq {
+  flex-grow: 1;
+  max-width: 700px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+.faq-item {
+  margin-bottom: 1rem;
+  border-radius: 15px;
+  background: rgba(0, 255, 224, 0.05);
+  box-shadow: 0 0 15px rgba(0, 255, 224, 0.1);
+  overflow: hidden;
+  transition: box-shadow 0.3s ease;
+}
+
+.faq-item:hover {
+  box-shadow: 0 0 25px #00ffe0aa;
+}
+
+.faq-question {
+  width: 100%;
+  background: transparent;
+  border: none;
+  padding: 18px 20px;
+  text-align: left;
+  font-size: 1.1rem;
+  color: #00ffe0;
+  cursor: pointer;
+  font-weight: 700;
+  position: relative;
+  transition: color 0.3s;
+  user-select: none;
+}
+
+.faq-question::after {
+  content: '+';
+  position: absolute;
+  right: 20px;
+  font-size: 1.3rem;
+  transition: transform 0.3s ease;
+}
+
+.faq-item.open .faq-question::after {
+  content: '-';
+  transform: rotate(180deg);
+}
+
+.faq-answer {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  padding: 0 20px;
+  color: #a0eaff;
+  font-size: 0.95rem;
+  line-height: 1.4;
+  transition: max-height 0.35s ease, opacity 0.3s ease;
+}
+
+.faq-item.open .faq-answer {
+  max-height: 500px; /* suficiente para a resposta */
+  opacity: 1;
+  padding: 15px 20px 20px;
+}
+
+/* Footer */
+footer {
+  padding: 1rem 0;
+  text-align: center;
+  font-size: 0.8rem;
+  color: #008080cc;
+  text-shadow: 0 0 3px #004040;
+}
+
+/* Botão flutuante Fale Conosco */
+#contactBtn {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, #00ffe0, #006b8f);
+  border: none;
+  border-radius: 50%;
+  font-size: 28px;
+  font-weight: bold;
+  line-height: 1;
+  color: #000;
+  cursor: pointer;
+  box-shadow: 0 0 15px #00ffe0;
+  transition: box-shadow 0.3s, transform 0.3s;
+  z-index: 1000;
+}
+
+#contactBtn:hover {
+  box-shadow: 0 0 25px #00ffc0;
+  transform: scale(1.1);
+}
+
+/* Modal base */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.75);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.3s ease;
+  z-index: 2000;
+}
+
+.modal.hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* Conteúdo do modal */
+.modal-content {
+  background: #111;
+  border-radius: 15px;
+  padding: 30px 25px;
+  width: 90%;
+  max-width: 420px;
+  box-shadow: 0 0 30px #00ffe0aa;
+  color: #cceeff;
+  position: relative;
+  animation: slideDown 0.4s ease forwards;
+}
+
+@keyframes slideDown {
+  from { transform: translateY(-50px); opacity: 0;}
+  to { transform: translateY(0); opacity: 1;}
+}
+
+/* Botão fechar */
+.close-btn {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  font-size: 28px;
+  background: transparent;
+  border: none;
+  color: #00ffe0;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.close-btn:hover {
+  color: #009999;
+}
+
+/* Formulário */
+#contactForm input,
+#contactForm textarea {
+  width: 100%;
+  padding: 12px 15px;
+  margin-bottom: 15px;
+  border-radius: 12px;
+  border: 1px solid #00ffe0aa;
+  background: rgba(20, 20, 20, 0.6);
+  color: #cceeff;
+  font-size: 1rem;
+  outline: none;
+  box-shadow: inset 0 0 8px #00ffe0aa;
+  transition: border-color 0.3s, box-shadow 0.3s;
+  resize: vertical;
+}
+
+#contactForm input:focus,
+#contactForm textarea:focus {
+  border-color: #00fff0;
+  box-shadow: 0 0 12px #00fff0, inset 0 0 15px #00fff0;
+}
+
+#contactForm button.btn {
+  background: linear-gradient(135deg, #00ffe0, #006b8f);
+  color: #000;
+  font-weight: 700;
+  font-size: 1.1rem;
+  box-shadow: 0 0 15px #00ffe0;
+  border-radius: 15px;
+  padding: 12px 0;
+  cursor: pointer;
+  border: none;
+  transition: background 0.3s;
+}
+
+#contactForm button.btn:hover {
+  background: linear-gradient(135deg, #00ccaa, #004f5f);
+}
+
+/* Mensagem de status */
+#contactMsg {
+  margin-top: 10px;
+  font-size: 0.9rem;
+  color: #00ffe0;
+  text-align: center;
+}

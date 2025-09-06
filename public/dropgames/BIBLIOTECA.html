@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Game Drop - Biblioteca</title>
+  <link rel="stylesheet" href="biblioteca.css">
+</head>
+<body>
+  <!-- Vídeo de fundo -->
+  <video autoplay muted loop id="backgroundVideo">
+    <source src="videoplayback.mp4" type="video/mp4">
+  </video>
+
+  <!-- Topbar -->
+  <header class="topbar">
+    <div class="logo">
+      <span class="logo-icon">🎮</span>
+      <span class="logo-text">GameDrop</span>
+    </div>
+    <nav class="menu">
+      <a href="dropgames.html">INÍCIO</a>
+      <a href="BIBLIOTECA.html" class="active">BIBLIOTECA</a>
+      <a href="CONFIGURAÇÔES.html">CONFIGURAÇÕES</a>
+    </nav>
+    <div class="header-actions">
+      <input type="text" id="searchInput" placeholder="Buscar jogos...">
+      <button id="themeToggle">🌙</button>
+     
+      
+      </div>
+    </div>
+  </header>
+
+  <!-- Status Bar -->
+  <section id="statusBar">
+    <p id="connectionStatus">🟢 Conectado</p>
+    <p id="cloudStatus">Jogos salvos na nuvem</p>
+  </section>
+
+  <!-- Biblioteca de Jogos -->
+  <main class="library">
+    <h1>Minha Biblioteca</h1>
+  <div class="library-grid" id="libraryGrid"></div>
+
+      <!-- Jogos serão inseridos via JavaScript -->
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-links">
+      <a href="#">Suporte</a>
+      <a href="#">Termos</a>
+      <a href="#">Privacidade</a>
+    </div>
+    <p>&copy; 2025 Game Drop</p>
+  </footer>
+  <script src="biblioteca.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>

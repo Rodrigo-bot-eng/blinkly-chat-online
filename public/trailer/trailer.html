@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Trailer - Blinkly Cine</title>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <!-- Fonte pixelada -->
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      background: black;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+      font-family: 'Arial', sans-serif;
+    }
+    video {
+      width: 100%;
+      height: 100vh;
+      object-fit: cover;
+      transform: scale(0.9);
+      display: none;
+    }
+    #overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.85);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      font-size: 26px;
+      cursor: pointer;
+      z-index: 20;
+      display: none;
+      text-align: center;
+    }
+
+    /* Intro */
+    #intro {
+      position: absolute;
+      inset: 0;
+      background: black;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      color: #fff;
+      z-index: 15;
+      text-align: center;
+      animation: fadeIn 1.5s ease-in-out;
+    }
+    #intro h1 {
+      font-family: 'Press Start 2P', cursive;
+      font-size: 2.5rem;
+      color: #cccccc;
+      margin: 0;
+      white-space: nowrap;
+      border-right: 3px solid #ccc;
+      width: 0;
+      overflow: hidden;
+      animation: typing 3s steps(20, end) forwards, blink 0.7s step-end infinite;
+    }
+    #intro p {
+      margin-top: 20px;
+      font-size: 1.2rem;
+      color: #aaa;
+      opacity: 0.9;
+      font-family: "Courier New", monospace;
+    }
+
+    /* Animações */
+    @keyframes typing {
+      from { width: 0; }
+      to { width: 22ch; }
+    }
+    @keyframes blink {
+      from, to { border-color: transparent; }
+      50% { border-color: #ccc; }
+    }
+    @keyframes fadeIn { from {opacity: 0;} to {opacity: 1;} }
+    .fade-out { animation: fadeOut 1.5s forwards; }
+    @keyframes fadeOut { from {opacity: 1;} to {opacity: 0; visibility: hidden;} }
+
+    /* Banner estilo YouTube */
+    #skipBanner {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      background: rgba(0,0,0,0.75);
+      color: white;
+      padding: 8px 14px;
+      border-radius: 3px;
+      font-size: 13px;
+      display: none;
+      z-index: 25;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: Arial, sans-serif;
+    }
+    #skipBanner button {
+      background: none;
+      border: none;
+      color: #ccc;
+      font-size: 14px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    #skipBanner button:hover {
+      color: #fff;
+    }
+    #skipText {
+      cursor: pointer;
+      color: #fff;
+    }
+    #skipText.disabled {
+      cursor: default;
+      color: #bbb;
+      text-decoration: none;
+    }
+    #skipText:hover:not(.disabled) {
+      text-decoration: underline;
+    }
+
+    /* Tela de carregamento */
+    #loadingScreen {
+      position: absolute;
+      inset: 0;
+      background: black;
+      display: none;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      color: white;
+      font-size: 20px;
+      z-index: 30;
+    }
+    .loader {
+      border: 6px solid #333;
+      border-top: 6px solid #fff;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      animation: spin 1s linear infinite;
+      margin-bottom: 15px;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+  <!-- Intro -->
+  <div id="intro">
+    <h1>Minecraft - O Filme</h1>
+    <p><i class="fa-solid fa-clapperboard"></i> Trailer Exclusivo</p>
+  </div>
+
+  <!-- Overlay áudio -->
+  <div id="overlay"><i class="fa-solid fa-volume-high"></i> Clique para ativar o áudio</div>
+
+  <!-- Trailer -->
+  <video id="meuVideo" autoplay playsinline>
+    <source src="mine.mp4" type="video/mp4">
+    Seu navegador não suporta vídeos HTML5.
+  </video>
+
+  <!-- Banner estilo YT -->
+  <div id="skipBanner">
+    <span id="skipText" class="disabled">Pular trailer em 5s</span>
+    <button id="closeBanner"><i class="fa-solid fa-xmark"></i></button>
+  </div>
+
+  <!-- Tela de carregamento -->
+  <div id="loadingScreen">
+    <div class="loader"></div>
+    Carregando...
+  </div>
+
+  <script>
+    const video = document.getElementById("meuVideo");
+    const overlay = document.getElementById("overlay");
+    const intro = document.getElementById("intro");
+    const skipBanner = document.getElementById("skipBanner");
+    const skipText = document.getElementById("skipText");
+    const closeBanner = document.getElementById("closeBanner");
+    const loadingScreen = document.getElementById("loadingScreen");
+
+    let skipAvailable = false;
+    let countdown = 5; // segundos para pular
+
+    // Mostra intro por 5s antes do trailer
+    setTimeout(() => {
+      intro.classList.add("fade-out");
+      setTimeout(() => {
+        intro.style.display = "none";
+        video.style.display = "block";
+        skipBanner.style.display = "flex";
+
+        // Tenta autoplay com áudio
+        video.muted = false;
+        video.play().catch(() => {
+          video.muted = true;
+          video.play();
+          overlay.style.display = "flex";
+        });
+
+        // Contagem regressiva estilo YT
+        const interval = setInterval(() => {
+          if (countdown > 1) {
+            countdown--;
+            skipText.textContent = `Pular trailer em ${countdown}s`;
+          } else {
+            clearInterval(interval);
+            skipAvailable = true;
+            skipText.textContent = "Pular trailer";
+            skipText.classList.remove("disabled");
+          }
+        }, 1000);
+
+      }, 1500);
+    }, 5000);
+
+    // Clique overlay ativa áudio
+    overlay.addEventListener("click", () => {
+      video.muted = false;
+      video.play();
+      overlay.style.display = "none";
+    });
+
+    // Pular trailer com tela de carregamento
+    skipText.addEventListener("click", () => {
+      if (skipAvailable) {
+        video.pause();
+        skipBanner.style.display = "none";
+        loadingScreen.style.display = "flex";
+        setTimeout(() => {
+          window.location.href = "../filmes/filmes.html";
+        }, 3000); // 3 segundos carregando
+      }
+    });
+
+    // Fechar banner
+    closeBanner.addEventListener("click", () => {
+      skipBanner.style.display = "none";
+    });
+
+    // Quando trailer acabar → tela de carregamento
+    video.addEventListener("ended", () => {
+      loadingScreen.style.display = "flex";
+      setTimeout(() => {
+        window.location.href = "../filmes/filmes.html";
+      }, 3000);
+    });
+  </script>
+</body>
+</html>
