@@ -11,6 +11,7 @@
 </head>
 <body>
     <div class="app-wrapper" id="app-wrapper">
+        <!-- Sidebar de Servidores -->
         <div class="main-sidebar-nav">
             <div class="main-nav-header">
                 <i class="fas fa-satellite-dish server-icon-main"></i>
@@ -24,6 +25,7 @@
                 <div class="server-icon store-icon" data-view="store" onclick="window.location.href='lojis/loja.html';"><i class="fas fa-store"></i></div>
             </div>
 
+            <!-- Widget do Usuário -->
             <div class="user-profile-widget" id="open-profile-modal-btn">
                 <div class="user-avatar" id="user-avatar-img" style="background-image: url('https://www.gravatar.com/avatar/?d=retro&s=200');"></div>
                 <span class="user-name" id="display-username">Carregando...</span>
@@ -31,6 +33,7 @@
             </div>
         </div>
 
+        <!-- Sidebar Esquerda -->
         <aside class="left-sidebar">
             <div class="sidebar-header">
                 <input type="text" placeholder="Encontrar ou iniciar uma conversa" class="search-input" />
@@ -38,6 +41,7 @@
             </div>
 
             <div class="sidebar-content-scrollable">
+                <!-- Amigos -->
                 <div class="friends-section active" id="friends-section">
                     <div class="friends-nav-buttons">
                         <button class="friends-button active" data-filter="all"><i class="fas fa-users"></i> Amigos</button>
@@ -49,6 +53,7 @@
                     <div class="dm-list" id="dm-list-container"></div>
                 </div>
 
+                <!-- Categorias / Salas -->
                 <div class="categories-section" id="categories-section">
                     <div class="category-block">
                         <h3 class="category-title"><i class="fas fa-users"></i> Comunidade</h3>
@@ -69,6 +74,7 @@
                             <li class="room-item" data-room-id="fortnite"># Fortnite</li>
                         </ul>
                     </div>
+
                     <div class="category-block private-rooms-section">
                         <h3 class="category-title"><i class="fas fa-lock"></i> Salas Privadas</h3>
                         <div class="private-room-actions">
@@ -81,6 +87,7 @@
             </div>
         </aside>
 
+        <!-- Área do Chat -->
         <main class="chat-main-area">
             <div class="chat-header-main">
                 <h3 class="current-room-title" id="chat-room-name">Selecione uma sala ou amigo</h3>
@@ -100,6 +107,7 @@
 
     <!-- Modais -->
 
+    <!-- Editar Perfil -->
     <div class="modal-overlay" id="profile-edit-modal">
         <div class="modal-content">
             <button class="close-modal-btn" id="close-profile-modal-btn">&times;</button>
@@ -118,6 +126,7 @@
         </div>
     </div>
 
+    <!-- Criar Sala -->
     <div class="modal-overlay" id="create-room-modal" style="display:none;">
         <div class="modal-content">
             <button class="close-modal-btn" id="close-create-room-btn">&times;</button>
@@ -132,6 +141,7 @@
         </div>
     </div>
 
+    <!-- Entrar em Sala -->
     <div class="modal-overlay" id="join-room-modal" style="display:none;">
         <div class="modal-content">
             <button class="close-modal-btn" id="close-join-room-btn">&times;</button>
@@ -145,6 +155,7 @@
         </div>
     </div>
 
+    <!-- Adicionar Amigo -->
     <div class="modal-overlay" id="add-friend-modal" style="display:none;">
         <div class="modal-content">
             <button class="close-modal-btn" id="close-add-friend-modal-btn">&times;</button>
@@ -165,6 +176,7 @@
         </div>
     </div>
 
+    <!-- Solicitações -->
     <div class="modal-overlay" id="friend-requests-modal" style="display:none;">
         <div class="modal-content">
             <button class="close-modal-btn" id="close-friend-requests-modal-btn">&times;</button>
@@ -175,6 +187,7 @@
         </div>
     </div>
 
+    <!-- Configurações -->
     <div class="modal-overlay" id="settings-modal" style="display: none;">
         <div class="modal-content">
             <button class="close-modal-btn" id="close-settings-modal-btn">&times;</button>
@@ -206,6 +219,7 @@
         </div>
     </div>
 
+    <!-- Scripts -->
     <script type="module" src="feed.js"></script>
 </body>
 </html>
