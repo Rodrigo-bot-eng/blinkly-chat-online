@@ -14,8 +14,23 @@
     --border-color: #383a4c;
     --shadow-light: rgba(0, 0, 0, 0.2);
     --gradient-main: linear-gradient(135deg, #5865F2 0%, #9b59b6 100%);
+    --transition-fast: 0.2s ease;
+    --transition-slow: 0.3s ease;
 }
 
+/* Tema Claro */
+[data-theme="light"] {
+    --bg-main: #f4f5f8;
+    --bg-card: #ffffff;
+    --bg-darker: #e9ebf3;
+    --bg-sidebar: #f0f1f6;
+    --text-primary: #2c2c34;
+    --text-secondary: #5a5a66;
+    --border-color: #d1d1db;
+    --shadow-light: rgba(0, 0, 0, 0.08);
+}
+
+/* Reset */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -29,6 +44,7 @@ body, html {
     line-height: 1.6;
     overflow: hidden;
     height: 100%;
+    transition: background-color var(--transition-slow), color var(--transition-slow);
 }
 
 .app-wrapper {
@@ -38,7 +54,7 @@ body, html {
 }
 
 /* ==================================== */
-/* 2. BARRA DE NAVEGAÇÃO PRINCIPAL (ESQUERDA) */
+/* 2. BARRA DE NAVEGAÇÃO PRINCIPAL */
 /* ==================================== */
 .main-sidebar-nav {
     background-color: var(--bg-darker);
@@ -49,7 +65,7 @@ body, html {
     padding: 10px 0;
     box-shadow: 2px 0 10px var(--shadow-light);
     z-index: 100;
-    transition: width 0.3s ease;
+    transition: width var(--transition-slow), background-color var(--transition-slow);
 }
 
 .main-nav-header {
@@ -59,6 +75,11 @@ body, html {
 .server-icon-main {
     font-size: 2.2rem;
     color: var(--color-accent-blue);
+    transition: transform var(--transition-fast);
+}
+
+.server-icon-main:hover {
+    transform: rotate(10deg) scale(1.1);
 }
 
 .server-icons-list {
@@ -71,6 +92,7 @@ body, html {
     padding-top: 10px;
 }
 
+/* Ícones de servidores */
 .server-icon {
     width: 50px;
     height: 50px;
@@ -82,15 +104,18 @@ body, html {
     color: var(--text-secondary);
     font-size: 1.5rem;
     cursor: pointer;
-    transition: background-color 0.2s, color 0.2s, transform 0.2s, border-radius 0.2s;
+    transition: background-color var(--transition-fast), 
+                color var(--transition-fast), 
+                transform var(--transition-fast), 
+                border-radius var(--transition-fast);
     position: relative;
-    overflow: hidden;
 }
 
 .server-icon.active {
     background: var(--gradient-main);
     color: var(--text-primary);
     border-radius: 25%;
+    box-shadow: 0 0 12px rgba(0,0,0,0.4);
 }
 
 .server-icon:hover {
@@ -100,7 +125,7 @@ body, html {
 }
 
 .server-icon.active:hover {
-    transform: scale(1.1);
+    transform: scale(1.12);
 }
 
 .nav-divider {
@@ -111,12 +136,7 @@ body, html {
     margin: 10px 0;
 }
 
-.store-icon {
-    position: relative;
-    color: var(--color-accent-blue);
-}
-
-/* User profile widget at the bottom */
+/* Perfil usuário */
 .user-profile-widget {
     padding: 10px;
     display: flex;
@@ -125,7 +145,7 @@ body, html {
     gap: 8px;
     width: 100%;
     cursor: pointer;
-    transition: background-color 0.2s;
+    transition: background-color var(--transition-fast);
 }
 
 .user-profile-widget:hover {
@@ -139,11 +159,12 @@ body, html {
     background-size: cover;
     background-position: center;
     border: 2px solid var(--color-accent-blue);
-    transition: transform 0.2s;
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast);
 }
 
 .user-profile-widget:hover .user-avatar {
-    transform: scale(1.05);
+    transform: scale(1.08);
+    box-shadow: 0 0 10px var(--color-accent-blue);
 }
 
 .user-name {
@@ -162,12 +183,13 @@ body, html {
     color: var(--text-secondary);
     font-size: 0.8rem;
     cursor: pointer;
-    transition: color 0.2s;
+    transition: color var(--transition-fast);
 }
 
 .logout-btn-widget:hover {
     color: var(--color-accent-purple);
 }
+
 
 /* ==================================== */
 /* 3. BARRA LATERAL ESQUERDA (CHAT) */
