@@ -752,4 +752,118 @@ body, html {
     .chat-main-area {
         margin-top: 60px;
     }
+} 
+/* ===============================
+   Modal Perfil - estilo Instagram
+   =============================== */
+#profile-edit-modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.6); /* Fundo escuro semi-transparente */
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  overflow-y: auto;
+  transition: opacity 0.3s ease;
+  opacity: 0;
+}
+
+#profile-edit-modal.show {
+  opacity: 1;
+}
+
+#profile-edit-modal .modal-content {
+  background: #fff;
+  border-radius: 12px;
+  padding: 30px 25px;
+  max-width: 400px;
+  width: 90%;
+  text-align: center;
+  position: relative;
+  transform: translateY(-30px);
+  transition: transform 0.3s ease;
+}
+
+#profile-edit-modal.show .modal-content {
+  transform: translateY(0);
+}
+
+#profile-edit-modal .modal-header {
+  font-size: 1.5em;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+#profile-edit-modal .close-btn {
+  position: absolute;
+  top: 12px;
+  right: 15px;
+  font-size: 1.2em;
+  cursor: pointer;
+  color: #333;
+}
+
+#modal-avatar-preview {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 15px;
+  border: 3px solid #f1f1f1;
+  transition: transform 0.3s ease;
+}
+
+#modal-avatar-preview:hover {
+  transform: scale(1.05);
+}
+
+#profile-edit-modal input[type="text"],
+#profile-edit-modal input[type="file"] {
+  width: 100%;
+  padding: 12px 15px;
+  margin: 8px 0;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 1em;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+#profile-edit-modal input[type="text"]:focus {
+  border-color: #0095f6;
+}
+
+#save-profile-btn {
+  background-color: #0095f6;
+  color: #fff;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-size: 1em;
+  cursor: pointer;
+  margin-top: 15px;
+  transition: background 0.3s ease;
+}
+
+#save-profile-btn:hover {
+  background-color: #007ac1;
+}
+
+#profile-message {
+  margin-top: 10px;
+  font-size: 0.9em;
+}
+
+/* Adiciona efeito de fade para o fundo */
+#profile-edit-modal.fade {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+#profile-edit-modal.fade.show {
+  opacity: 1;
 }
