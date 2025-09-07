@@ -137,3 +137,19 @@ var swiper = new Swiper(".swiper", {
     prevEl: ".backward",
   },
 });
+
+
+
+
+const frames = [
+    "images/frame1.png",
+    "images/frame2.png",
+    "images/frame3.png",
+    "images/frame4.png"
+  ];
+
+  let i = 0;
+  setInterval(() => {
+    document.getElementById("dynamic-favicon").href = frames[i];
+    i = (i + 1) % frames.length;
+  }, 200); // troca a cada 200ms
