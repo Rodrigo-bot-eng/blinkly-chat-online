@@ -6,52 +6,44 @@ const forwardButton = document.querySelector(".controls button.forward");
 const backwardButton = document.querySelector(".controls button.backward");
 const songName = document.querySelector(".music-player h1");
 const artistName = document.querySelector(".music-player p");
-
 const songs = [
   {
     title: "Symphony",
     name: "Clean Bandit ft. Zara Larsson",
-    source:
-      "songs/Song1.mp3",
+    source: "Songs/Song1.mp3",
   },
   {
     title: "Pawn It All",
     name: "Alicia Keys",
-    source:
-      "songs/Song2.mp3",
+    source: "Songs/Song2.mp3",
   },
   {
     title: "Seni Dert Etmeler",
     name: "Madrigal",
-    source:
-      "songs/Song3.mp3",
+    source: "Songs/Song3.mp3",
   },
   {
     title: "Instant Crush",
     name: "Daft Punk ft. Julian Casablancas",
-    source:
-      "songs/Song4.mp3",
+    source: "Songs/Song4.mp3",
   },
   {
     title: "As It Was",
     name: "Harry Styles",
-    source:
-      "songs/Song5.mp3",
+    source: "Songs/Song5.mp3",
   },
-
   {
     title: "Physical",
     name: "Dua Lipa",
-    source:
-      "songs/Song6.mp3",
+    source: "Songs/Song6.mp3",
   },
   {
     title: "Delicate",
     name: "Taylor Swift",
-    source:
-      "songs/Song7.mp3",
+    source: "Songs/Song7.mp3",
   },
 ];
+
 
 let currentSongIndex = 3;
 
