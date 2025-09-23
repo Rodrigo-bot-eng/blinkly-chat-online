@@ -882,43 +882,8 @@ body, html {
 }
 
 
-#chat-area {
+#chat-messages {
+  background-image: url("ia.jpg");
   background-size: cover;
   background-position: center;
-  background-repeat: no-repeat;
-  transition: background-image 0.4s ease-in-out;
-}
-
-/* fundo da sala Geral */
-#chat-area.sala-publico {
-  background-image: url("ia.jpg");
-}
-
-/* fundo da sala Programação */
-#chat-area.sala-programacao {
-  background-image: url("imagens/programacao.jpg");
-}
-
-/* fundo da sala Música */
-#chat-area.sala-musica {
-  background-image: url("imagens/musica.jpg");
-}
-
-/* fundo da sala Arte & Design */
-#chat-area.sala-arte-e-design {
-  background-image: url("imagens/arte.jpg");
-}
-
-/* Games */
-#chat-area.sala-amongus {
-  background-image: url("imagens/amongus.jpg");
-}
-#chat-area.sala-minecraft {
-  background-image: url("imagens/minecraft.jpg");
-}
-#chat-area.sala-lol {
-  background-image: url("imagens/lol.jpg");
-}
-#chat-area.sala-fortnite {
-  background-image: url("imagens/fortnite.jpg");
 }
