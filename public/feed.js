@@ -84,36 +84,29 @@ const logoutBtnModal = document.getElementById('logout-btn-modal');
 const goMusicBtn = document.getElementById('go-music'); // <div id="go-music" class="server-icon">🎵</div> → leva para musica.html
 
 
-// ===============================
-// feed.js — Blinkly Chat Online (Atualizado com avatar em tempo real)
-// ===============================
-
-// ...[Seu código DOM permanece igual]...
-
 // ========== Firebase ==========
-// (Mesma configuração que você já tinha)
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import { getAuth, onAuthStateChanged, signOut, updateProfile } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 import {
-  getFirestore, collection, addDoc, doc, setDoc, getDoc, getDocs,
-  updateDoc, serverTimestamp, query, orderBy, onSnapshot, where, deleteDoc
+  getFirestore, collection, addDoc, doc, setDoc, getDoc, getDocs,
+  updateDoc, serverTimestamp, query, orderBy, onSnapshot, where, deleteDoc
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 import {
-  getDatabase, ref as rtdbRef, onValue as rtdbOnValue, onDisconnect, set as rtdbSet
+  getDatabase, ref as rtdbRef, onValue as rtdbOnValue, onDisconnect, set as rtdbSet
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 import {
-  getStorage, ref as storageRef, uploadBytes, getDownloadURL
+  getStorage, ref as storageRef, uploadBytes, getDownloadURL
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBvho-095JnOAwTMCaQ8LxIROlpMCbAppw",
-  authDomain: "blinkly-online-4169a.firebaseapp.com",
-  projectId: "blinkly-online-4169a",
-  storageBucket: "blinkly-online-4169a.firebasestorage.app",
-  messagingSenderId: "1006187399372",
-  appId: "1:1006187399372:web:0f4aafedfa74bcb2631a69",
-  measurementId: "G-50JPVBRMR3",
-  databaseURL: "https://blinkly-online-4169a-default-rtdb.firebaseio.com"
+  apiKey: "AIzaSyBvho-095JnOAwTMCaQ8LxIROlpMCbAppw",
+  authDomain: "blinkly-online-4169a.firebaseapp.com",
+  projectId: "blinkly-online-4169a",
+  storageBucket: "blinkly-online-4169a.firebasestorage.app",
+  messagingSenderId: "1006187399372",
+  appId: "1:1006187399372:web:0f4aafedfa74bcb2631a69",
+  measurementId: "G-50JPVBRMR3",
+  databaseURL: "https://blinkly-online-4169a-default-rtdb.firebaseio.com"
 };
 
 const app = initializeApp(firebaseConfig);
@@ -122,143 +115,109 @@ const db = getFirestore(app);
 const rtdb = getDatabase(app);
 const storage = getStorage(app);
 
+
 // ========== Estado ==========
 let currentUser = null;
-let currentRoom = 'publico';
-let foundUserCache = null;
-const avatarCache = {}; // <---- cache de avatars para mensagens em tempo real
+let currentRoom = 'publico'; // bate com seu HTML (# Geral → data-room-id="publico")
+let foundUserCache = null;   // guarda o usuário encontrado no modal "Adicionar Amigo"
+
 
 // ========== Presença Online ==========
 function setupPresence(userId) {
-  const userRef = rtdbRef(rtdb, 'activeUsers/' + userId);
-  rtdbSet(userRef, { status: 'online', lastSeen: Date.now() });
-  onDisconnect(userRef).set({ status: 'offline', lastSeen: Date.now() });
+  const userRef = rtdbRef(rtdb, 'activeUsers/' + userId);
+  rtdbSet(userRef, { status: 'online', lastSeen: Date.now() });
+  onDisconnect(userRef).set({ status: 'offline', lastSeen: Date.now() });
 }
 
 function subscribeOnlineCount() {
-  const activeRef = rtdbRef(rtdb, 'activeUsers');
-  rtdbOnValue(activeRef, (snapshot) => {
-    if (snapshot.exists()) {
-      const users = snapshot.val();
-      onlineUsersCount && (onlineUsersCount.textContent = Object.keys(users).length);
-    } else {
-      onlineUsersCount && (onlineUsersCount.textContent = '0');
-    }
-  });
+  const activeRef = rtdbRef(rtdb, 'activeUsers');
+  rtdbOnValue(activeRef, (snapshot) => {
+    if (snapshot.exists()) {
+      const users = snapshot.val();
+      onlineUsersCount && (onlineUsersCount.textContent = Object.keys(users).length);
+    } else {
+      onlineUsersCount && (onlineUsersCount.textContent = '0');
+    }
+  });
 }
+
 
 // ========== Autenticação ==========
 onAuthStateChanged(auth, async (user) => {
-  if (!user) {
-    alert('Você precisa fazer login para usar o chat.');
-    chatInput && (chatInput.disabled = true);
-    sendButton && (sendButton.disabled = true);
-    return;
-  }
+  if (!user) {
+    alert('Você precisa fazer login para usar o chat.');
+    chatInput && (chatInput.disabled = true);
+    sendButton && (sendButton.disabled = true);
+    return;
+  }
 
-  currentUser = user;
+  currentUser = user;
 
-  const userDocRef = doc(db, 'users', currentUser.uid);
-  const snapshot = await getDoc(userDocRef);
-  if (!snapshot.exists()) {
-    await setDoc(userDocRef, {
-      username: currentUser.displayName || 'Usuário',
-      email: currentUser.email || '',
-      photoURL: currentUser.photoURL || 'https://www.gravatar.com/avatar/?d=retro&s=200',
-      createdAt: serverTimestamp(),
-      usernameLower: (currentUser.displayName || 'Usuário').toLowerCase()
-    }, { merge: true });
-  }
+  // Garante que exista um doc de usuário (útil quando vindo do seu auth.js)
+  const userDocRef = doc(db, 'users', currentUser.uid);
+  const snapshot = await getDoc(userDocRef);
+  if (!snapshot.exists()) {
+    await setDoc(userDocRef, {
+      username: currentUser.displayName || 'Usuário',
+      email: currentUser.email || '',
+      photoURL: currentUser.photoURL || 'https://www.gravatar.com/avatar/?d=retro&s=200',
+      createdAt: serverTimestamp(),
+      usernameLower: (currentUser.displayName || 'Usuário').toLowerCase()
+    }, { merge: true });
+  }
 
-  displayUsername && (displayUsername.textContent = currentUser.displayName || 'Usuário');
-  if (userAvatarImg) userAvatarImg.style.backgroundImage = `url('${currentUser.photoURL || 'https://www.gravatar.com/avatar/?d=retro&s=200'}')`;
+  // UI header
+  displayUsername && (displayUsername.textContent = currentUser.displayName || 'Usuário');
+  if (userAvatarImg) userAvatarImg.style.backgroundImage = `url('${currentUser.photoURL || 'https://www.gravatar.com/avatar/?d=retro&s=200'}')`;
 
-  chatInput && (chatInput.disabled = false);
-  sendButton && (sendButton.disabled = false);
+  // Habilita chat
+  chatInput && (chatInput.disabled = false);
+  sendButton && (sendButton.disabled = false);
 
-  setupPresence(currentUser.uid);
-  subscribeOnlineCount();
+  // Presença e contagem
+  setupPresence(currentUser.uid);
+  subscribeOnlineCount();
 
-  listenForMessages(currentRoom);
-  listenForFriendRequests();
-  loadPrivateRooms();
+  // Mensagens da sala atual
+  listenForMessages(currentRoom);
 
-  if (profileUsernameInput) profileUsernameInput.value = currentUser.displayName || '';
-  if (modalAvatarPreview) modalAvatarPreview.src = currentUser.photoURL || 'https://www.gravatar.com/avatar/?d=retro&s=200';
+  // Solicitações de amizade
+  listenForFriendRequests();
 
-  // ===========================
-  // Atualização do avatar em tempo real
-  const userRefRealtime = doc(db, 'users', currentUser.uid);
-  onSnapshot(userRefRealtime, (docSnap) => {
-    if (!docSnap.exists()) return;
-    const data = docSnap.data();
-    const newPhoto = data.photoURL || 'https://www.gravatar.com/avatar/?d=retro&s=200';
-    
-    if (userAvatarImg) userAvatarImg.style.backgroundImage = `url('${newPhoto}')`;
-    if (modalAvatarPreview) modalAvatarPreview.src = newPhoto;
+  // Lista de salas privadas
+  loadPrivateRooms();
 
-    avatarCache[currentUser.uid] = newPhoto;
-
-    // Atualiza mensagens já renderizadas
-    document.querySelectorAll(`.message-bubble[data-uid="${currentUser.uid}"] .message-avatar`)
-      .forEach(el => el.style.backgroundImage = `url('${newPhoto}')`);
-  });
+  // Preenche modal de perfil
+  if (profileUsernameInput) profileUsernameInput.value = currentUser.displayName || '';
+  if (modalAvatarPreview) modalAvatarPreview.src = currentUser.photoURL || 'https://www.gravatar.com/avatar/?d=retro&s=200';
 });
+
 
 // ========== Chat ==========
 function listenForMessages(roomId) {
-  if (chatMessagesContainer) chatMessagesContainer.style.display = 'none';
-  if (aiChatMessagesContainer) aiChatMessagesContainer.style.display = 'none';
+  // Esconde todos os containers de chat
+  if (chatMessagesContainer) chatMessagesContainer.style.display = 'none';
+  if (aiChatMessagesContainer) aiChatMessagesContainer.style.display = 'none';
 
-  if (roomId === 'ia-chat') {
-    if (aiChatMessagesContainer) aiChatMessagesContainer.style.display = 'block';
-    const chatCollectionRef = collection(db, `rooms/${'publico'}/messages`);
-    onSnapshot(chatCollectionRef, () => {});
-    clearChat(true);
-  } else {
-    if (chatMessagesContainer) chatMessagesContainer.style.display = 'block';
-    const q = query(collection(db, `rooms/${roomId}/messages`), orderBy("createdAt", "desc"));
-    onSnapshot(q, (snapshot) => {
-      clearChat(false);
-      snapshot.forEach(async (docSnap) => {
-        const msg = docSnap.data();
-        // Atualiza avatar via cache ou Firestore
-        if (!avatarCache[msg.uid]) {
-          const uDoc = await getDoc(doc(db, 'users', msg.uid));
-          avatarCache[msg.uid] = uDoc.exists() ? uDoc.data().photoURL : msg.avatar;
-        }
-        addMessage(msg.username, msg.text, msg.createdAt, avatarCache[msg.uid], msg.uid, false);
-      });
-    });
-  }
+  // Mostra o container correto
+  if (roomId === 'ia-chat') {
+    if (aiChatMessagesContainer) aiChatMessagesContainer.style.display = 'block';
+    // Remove o listener do chat real para não haver conflitos
+    const chatCollectionRef = collection(db, `rooms/${'publico'}/messages`);
+    onSnapshot(chatCollectionRef, () => {});
+    clearChat(true);
+  } else {
+    if (chatMessagesContainer) chatMessagesContainer.style.display = 'block';
+    const q = query(collection(db, `rooms/${roomId}/messages`), orderBy("createdAt", "desc"));
+    onSnapshot(q, (snapshot) => {
+      clearChat(false);
+      snapshot.forEach((docSnap) => {
+        const msg = docSnap.data();
+        addMessage(msg.username, msg.text, msg.createdAt, msg.avatar, msg.uid, false);
+      });
+    });
+  }
 }
-
-async function addMessage(username, text, timestamp, avatarUrl, uid, isAI) {
-  const msg = document.createElement('div');
-  msg.classList.add('message-bubble');
-  msg.dataset.uid = uid;
-
-  if (currentUser && uid === currentUser.uid) msg.classList.add('own-message');
-  else msg.classList.add('other-message');
-
-  const time = (timestamp && timestamp.seconds)
-    ? new Date(timestamp.seconds * 1000).toLocaleTimeString()
-    : 'Agora';
-
-  msg.innerHTML = `
-    <div class="message-avatar" style="background-image: url('${avatarUrl || ''}')"></div>
-    <div class="message-content">
-      <span class="message-author">${escapeHTML(username || '')}</span>
-      <p class="message-text">${escapeHTML(text || '')}</p>
-      <span class="message-timestamp">${time}</span>
-    </div>
-  `;
-  
-  if (isAI) aiChatMessagesContainer && aiChatMessagesContainer.prepend(msg);
-  else chatMessagesContainer && chatMessagesContainer.prepend(msg);
-}
-
-// ========== O restante do seu feed.js permanece igual ==========
 
 async function sendMessage(text) {
   if (!currentUser || !text.trim()) return;
