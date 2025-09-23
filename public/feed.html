@@ -11,16 +11,14 @@
 </head>
 <body>
     <div class="app-wrapper" id="app-wrapper">
-        <!-- Sidebar de Servidores -->
         <div class="main-sidebar-nav">
             <div class="main-nav-header">
                 <i class="fas fa-satellite-dish server-icon-main"></i>
             </div>
             <div class="server-icons-list">
-                <!-- Botão Termos de Uso -->
-            <div class="server-icon terms-icon" data-view="terms" onclick="window.location.href='./termosdeuso/importante.html';">
-  <i class="fas fa-file-contract"></i>
-            </div>
+                <div class="server-icon terms-icon" data-view="terms" onclick="window.location.href='./termosdeuso/importante.html';">
+                    <i class="fas fa-file-contract"></i>
+                </div>
 
                 <hr class="nav-divider" />
                 <div class="server-icon" data-view="community"><i class="fas fa-users"></i></div>
@@ -28,11 +26,9 @@
                 <div class="server-icon" data-view="cinema" onclick="window.location.href='cine/cinema.html';"><i class="fas fa-film"></i></div>
                 <div class="server-icon store-icon" data-view="store" onclick="window.location.href='lojis/loja.html';"><i class="fas fa-store"></i></div>
                 <div class="server-icon music-icon" data-view="music" onclick="window.location.href='./musica/musica.html';"> <i class="fas fa-music"></i>
-</div>
+                </div>
             </div>
 
-
-            <!-- Widget do Usuário -->
             <div class="user-profile-widget" id="open-profile-modal-btn">
                 <div class="user-avatar" id="user-avatar-img" style="background-image: url('https://www.gravatar.com/avatar/?d=retro&s=200');"></div>
                 <span class="user-name" id="display-username">Carregando...</span>
@@ -40,7 +36,6 @@
             </div>
         </div>
 
-        <!-- Sidebar Esquerda -->
         <aside class="left-sidebar">
             <div class="sidebar-header">
                 <input type="text" placeholder="Encontrar ou iniciar uma conversa" class="search-input" />
@@ -48,7 +43,6 @@
             </div>
 
             <div class="sidebar-content-scrollable">
-                <!-- Amigos -->
                 <div class="friends-section active" id="friends-section">
                     <div class="friends-nav-buttons">
                         <button class="friends-button active" data-filter="all"><i class="fas fa-users"></i> Amigos</button>
@@ -60,7 +54,31 @@
                     <div class="dm-list" id="dm-list-container"></div>
                 </div>
 
-                <!-- Categorias / Salas -->
+
+                  <div class="categories-section" id="categories-section">
+                    <div class="category-block">
+                        <h3 class="category-title"><i class="fas fa-robot"></i> BLINKLY IA</h3>
+                        <ul class="rooms-list">
+                        <li class="room-item" data-room-id="ia-chat">
+                            
+                           <li class="room-item" data-room-id="ia-chat" style="display:flex; align-items:center;">
+                        <i class="fas fa-robot" style="color:#00a2ff; margin-right:8px; transition: transform 0.3s;"></i>
+                        <span style="
+                         font-weight:bold;
+                          background: linear-gradient(45deg, #4a90e2, #9b59b6);
+                           -webkit-background-clip: text;
+                           -webkit-text-fill-color: transparent;
+                            transition: all 0.3s;
+                            ">𒀯 Blinkly IA 𒀯
+                         </span>
+                        </li>
+
+
+
+                        </ul>
+                    </div>
+
+
                 <div class="categories-section" id="categories-section">
                     <div class="category-block">
                         <h3 class="category-title"><i class="fas fa-users"></i> Comunidade</h3>
@@ -94,7 +112,6 @@
             </div>
         </aside>
 
-        <!-- Área do Chat -->
         <main class="chat-main-area">
             <div class="chat-header-main">
                 <h3 class="current-room-title" id="chat-room-name">Selecione uma sala ou amigo</h3>
@@ -105,6 +122,7 @@
                 </div>
             </div>
             <div class="chat-messages-container" id="chat-messages"></div>
+            <div id="ai-chat-messages-container" class="chat-messages-container" style="display: none;"></div>
             <div class="chat-input-wrapper">
                 <input type="text" id="chat-input" placeholder="Selecione uma sala para conversar..." disabled />
                 <button class="send-message-btn" id="send-btn" disabled><i class="fas fa-paper-plane"></i> Enviar</button>
@@ -112,9 +130,6 @@
         </main>
     </div>
 
-    <!-- Modais -->
-
-    <!-- Editar Perfil -->
     <div class="modal-overlay" id="profile-edit-modal">
         <div class="modal-content">
             <button class="close-modal-btn" id="close-profile-modal-btn">&times;</button>
@@ -133,7 +148,6 @@
         </div>
     </div>
 
-    <!-- Criar Sala -->
     <div class="modal-overlay" id="create-room-modal" style="display:none;">
         <div class="modal-content">
             <button class="close-modal-btn" id="close-create-room-btn">&times;</button>
@@ -148,7 +162,6 @@
         </div>
     </div>
 
-    <!-- Entrar em Sala -->
     <div class="modal-overlay" id="join-room-modal" style="display:none;">
         <div class="modal-content">
             <button class="close-modal-btn" id="close-join-room-btn">&times;</button>
@@ -162,7 +175,6 @@
         </div>
     </div>
 
-    <!-- Adicionar Amigo -->
     <div class="modal-overlay" id="add-friend-modal" style="display:none;">
         <div class="modal-content">
             <button class="close-modal-btn" id="close-add-friend-modal-btn">&times;</button>
@@ -183,7 +195,6 @@
         </div>
     </div>
 
-    <!-- Solicitações -->
     <div class="modal-overlay" id="friend-requests-modal" style="display:none;">
         <div class="modal-content">
             <button class="close-modal-btn" id="close-friend-requests-modal-btn">&times;</button>
@@ -194,7 +205,6 @@
         </div>
     </div>
 
-    <!-- Configurações -->
     <div class="modal-overlay" id="settings-modal" style="display: none;">
         <div class="modal-content">
             <button class="close-modal-btn" id="close-settings-modal-btn">&times;</button>
@@ -226,7 +236,6 @@
         </div>
     </div>
 
-    <!-- Scripts -->
     <script type="module" src="feed.js"></script>
 </body>
 </html>
