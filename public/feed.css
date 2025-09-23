@@ -867,3 +867,16 @@ body, html {
 #profile-edit-modal.fade.show {
   opacity: 1;
 }
+
+
+
+
+
+
+#ai-chat-messages-container {
+    background-image: url('ia.jpg');
+    background-size: cover; /* Ajusta a imagem para cobrir toda a área */
+    background-position: center; /* Centraliza a imagem */
+    background-repeat: no-repeat; /* Evita que a imagem se repita */
+    background-attachment: fixed; /* Opcional: mantém a imagem fixa enquanto você rola */
+}
