@@ -264,7 +264,7 @@ function simulateAIResponse(userMessage) {
     } else if (normalizedMessage.includes('dia a dia') || normalizedMessage.includes('recomendações')) {
       responseText = "Uma recomendação para o dia a dia: tente beber mais água e fazer pequenas pausas para alongar.";
     } else {
-      responseText = "Olá! Por enquanto, posso te dar algumas recomendações. Tente perguntar sobre 'filme', 'jogos' ou 'recomendações do dia a dia'.";
+      responseText = "Olá eu sou a ZYRA! Por enquanto, posso te dar algumas recomendações. Tente perguntar sobre 'filme', 'jogos' ou 'recomendações do dia a dia'.";
     }
 
     aiResponse.textContent = responseText;
@@ -274,7 +274,7 @@ function simulateAIResponse(userMessage) {
     // Remove a mensagem de desenvolvimento após a resposta
     developmentMessage.remove();
 
-  }, 1500); // Simula um tempo de processamento de 1.5 segundos
+  }, 1500); // Simula um tempo de processamento de 2.5 segundos
 }
 
 function addMessage(username, text, timestamp, avatarUrl, uid, isAI) {
