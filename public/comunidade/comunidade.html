@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Comunidades</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body {
+      font-family: 'Lato', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #4e54c8, #8f94fb); /* azul + roxo */
+      color: #fff;
+    }
+
+    header {
+      text-align: center;
+      padding: 25px 10px;
+      font-size: 2em;
+      font-weight: bold;
+      background: rgba(0,0,0,0.2);
+      backdrop-filter: blur(5px);
+    }
+
+    main {
+      max-width: 1000px;
+      margin: auto;
+      padding: 30px 20px;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 30px;
+      font-size: 1.8em;
+      text-shadow: 1px 1px 5px rgba(0,0,0,0.5);
+    }
+
+    .community-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 20px;
+    }
+
+    .community-card {
+      background: rgba(255,255,255,0.1);
+      border-radius: 15px;
+      padding: 25px 15px;
+      text-align: center;
+      transition: transform 0.3s, box-shadow 0.3s;
+      cursor: pointer;
+      text-decoration: none;
+      color: #fff;
+    }
+
+    .community-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+      background: rgba(255,255,255,0.15);
+    }
+
+    .community-card i {
+      font-size: 40px;
+      margin-bottom: 12px;
+      color: #ffbb33;
+    }
+
+    .community-card p {
+      margin: 0;
+      font-weight: bold;
+      font-size: 1.1em;
+    }
+
+    .back-button {
+      display: inline-block;
+      background-color: #0a036b;
+      color: #fff;
+      padding: 12px 25px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      margin-top: 40px;
+      transition: all 0.3s ease;
+    }
+
+    .back-button:hover {
+      background-color: #1500d3;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(255, 76, 76, 0.3);
+    }
+  </style>
+</head>
+<body>
+  <header>Comunidades</header>
+  <main>
+    <h2>Entre nas nossas Comunidades</h2>
+
+    <div class="community-grid">
+      <a href="https://www.facebook.com" target="_blank" class="community-card">
+        <i class="fab fa-facebook-f"></i>
+        <p>Facebook</p>
+      </a>
+      <a href="https://www.instagram.com" target="_blank" class="community-card">
+        <i class="fab fa-instagram"></i>
+        <p>Instagram</p>
+      </a>
+      <a href="https://www.tiktok.com" target="_blank" class="community-card">
+        <i class="fab fa-tiktok"></i>
+        <p>TikTok</p>
+      </a>
+      <a href="https://www.twitter.com" target="_blank" class="community-card">
+        <i class="fab fa-twitter"></i>
+        <p>Twitter</p>
+      </a>
+      <a href="https://www.youtube.com" target="_blank" class="community-card">
+        <i class="fab fa-youtube"></i>
+        <p>YouTube</p>
+      </a>
+      <a href="https://discord.com" target="_blank" class="community-card">
+        <i class="fab fa-discord"></i>
+        <p>Discord</p>
+      </a>
+      <a href="https://web.whatsapp.com" target="_blank" class="community-card">
+        <i class="fab fa-whatsapp"></i>
+        <p>WhatsApp</p>
+      </a>
+      <a href="https://www.reddit.com" target="_blank" class="community-card">
+        <i class="fab fa-reddit-alien"></i>
+        <p>Reddit</p>
+      </a>
+    </div>
+
+    <div style="text-align:center;">
+      <a href="../feed.html" class="back-button">Voltar</a>
+    </div>
+  </main>
+</body>
+</html>
