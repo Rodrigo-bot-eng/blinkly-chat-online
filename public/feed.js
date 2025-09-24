@@ -1,5 +1,5 @@
 // ===============================
-// feed.js — Blinkly Chat Online
+// feed.js — Blinkly Chat Online (Versão com IA avançada)
 // ===============================
 
 // ========== DOM ==========
@@ -80,33 +80,32 @@ const closeSettingsModalBtn = document.getElementById('close-settings-modal-btn'
 const logoutBtn = document.getElementById('logout-btn');
 const logoutBtnModal = document.getElementById('logout-btn-modal');
 
-// (Opcional) Se você criar um botão/ícone pra música, use id="go-music"
-const goMusicBtn = document.getElementById('go-music'); // <div id="go-music" class="server-icon">🎵</div> → leva para musica.html
-
+// Música (opcional)
+const goMusicBtn = document.getElementById('go-music');
 
 // ========== Firebase ==========
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import { getAuth, onAuthStateChanged, signOut, updateProfile } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 import {
-  getFirestore, collection, addDoc, doc, setDoc, getDoc, getDocs,
-  updateDoc, serverTimestamp, query, orderBy, onSnapshot, where, deleteDoc
+  getFirestore, collection, addDoc, doc, setDoc, getDoc, getDocs,
+  updateDoc, serverTimestamp, query, orderBy, onSnapshot, where, deleteDoc
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 import {
-  getDatabase, ref as rtdbRef, onValue as rtdbOnValue, onDisconnect, set as rtdbSet
+  getDatabase, ref as rtdbRef, onValue as rtdbOnValue, onDisconnect, set as rtdbSet
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 import {
-  getStorage, ref as storageRef, uploadBytes, getDownloadURL
+  getStorage, ref as storageRef, uploadBytes, getDownloadURL
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBvho-095JnOAwTMCaQ8LxIROlpMCbAppw",
-  authDomain: "blinkly-online-4169a.firebaseapp.com",
-  projectId: "blinkly-online-4169a",
-  storageBucket: "blinkly-online-4169a.firebasestorage.app",
-  messagingSenderId: "1006187399372",
-  appId: "1:1006187399372:web:0f4aafedfa74bcb2631a69",
-  measurementId: "G-50JPVBRMR3",
-  databaseURL: "https://blinkly-online-4169a-default-rtdb.firebaseio.com"
+  apiKey: "AIzaSyBvho-095JnOAwTMCaQ8LxIROlpMCbAppw",
+  authDomain: "blinkly-online-4169a.firebaseapp.com",
+  projectId: "blinkly-online-4169a",
+  storageBucket: "blinkly-online-4169a.firebasestorage.app",
+  messagingSenderId: "1006187399372",
+  appId: "1:1006187399372:web:0f4aafedfa74bcb2631a69",
+  measurementId: "G-50JPVBRMR3",
+  databaseURL: "https://blinkly-online-4169a-default-rtdb.firebaseio.com"
 };
 
 const app = initializeApp(firebaseConfig);
@@ -115,210 +114,225 @@ const db = getFirestore(app);
 const rtdb = getDatabase(app);
 const storage = getStorage(app);
 
-
 // ========== Estado ==========
 let currentUser = null;
-let currentRoom = 'publico'; // bate com seu HTML (# Geral → data-room-id="publico")
-let foundUserCache = null;   // guarda o usuário encontrado no modal "Adicionar Amigo"
-
+let currentRoom = 'publico';
+let foundUserCache = null;
 
 // ========== Presença Online ==========
 function setupPresence(userId) {
-  const userRef = rtdbRef(rtdb, 'activeUsers/' + userId);
-  rtdbSet(userRef, { status: 'online', lastSeen: Date.now() });
-  onDisconnect(userRef).set({ status: 'offline', lastSeen: Date.now() });
+  const userRef = rtdbRef(rtdb, 'activeUsers/' + userId);
+  rtdbSet(userRef, { status: 'online', lastSeen: Date.now() });
+  onDisconnect(userRef).set({ status: 'offline', lastSeen: Date.now() });
 }
 
 function subscribeOnlineCount() {
-  const activeRef = rtdbRef(rtdb, 'activeUsers');
-  rtdbOnValue(activeRef, (snapshot) => {
-    if (snapshot.exists()) {
-      const users = snapshot.val();
-      onlineUsersCount && (onlineUsersCount.textContent = Object.keys(users).length);
-    } else {
-      onlineUsersCount && (onlineUsersCount.textContent = '0');
-    }
-  });
+  const activeRef = rtdbRef(rtdb, 'activeUsers');
+  rtdbOnValue(activeRef, (snapshot) => {
+    if (snapshot.exists()) {
+      const users = snapshot.val();
+      onlineUsersCount && (onlineUsersCount.textContent = Object.keys(users).length);
+    } else {
+      onlineUsersCount && (onlineUsersCount.textContent = '0');
+    }
+  });
 }
-
 
 // ========== Autenticação ==========
 onAuthStateChanged(auth, async (user) => {
-  if (!user) {
-    alert('Você precisa fazer login para usar o chat.');
-    chatInput && (chatInput.disabled = true);
-    sendButton && (sendButton.disabled = true);
-    return;
-  }
+  if (!user) {
+    alert('Você precisa fazer login para usar o chat.');
+    chatInput && (chatInput.disabled = true);
+    sendButton && (sendButton.disabled = true);
+    return;
+  }
 
-  currentUser = user;
+  currentUser = user;
 
-  // Garante que exista um doc de usuário (útil quando vindo do seu auth.js)
-  const userDocRef = doc(db, 'users', currentUser.uid);
-  const snapshot = await getDoc(userDocRef);
-  if (!snapshot.exists()) {
-    await setDoc(userDocRef, {
-      username: currentUser.displayName || 'Usuário',
-      email: currentUser.email || '',
-      photoURL: currentUser.photoURL || 'https://www.gravatar.com/avatar/?d=retro&s=200',
-      createdAt: serverTimestamp(),
-      usernameLower: (currentUser.displayName || 'Usuário').toLowerCase()
-    }, { merge: true });
-  }
+  const userDocRef = doc(db, 'users', currentUser.uid);
+  const snapshot = await getDoc(userDocRef);
+  if (!snapshot.exists()) {
+    await setDoc(userDocRef, {
+      username: currentUser.displayName || 'Usuário',
+      email: currentUser.email || '',
+      photoURL: currentUser.photoURL || 'https://www.gravatar.com/avatar/?d=retro&s=200',
+      createdAt: serverTimestamp(),
+      usernameLower: (currentUser.displayName || 'Usuário').toLowerCase()
+    }, { merge: true });
+  }
 
-  // UI header
-  displayUsername && (displayUsername.textContent = currentUser.displayName || 'Usuário');
-  if (userAvatarImg) userAvatarImg.style.backgroundImage = `url('${currentUser.photoURL || 'https://www.gravatar.com/avatar/?d=retro&s=200'}')`;
+  displayUsername && (displayUsername.textContent = currentUser.displayName || 'Usuário');
+  if (userAvatarImg) userAvatarImg.style.backgroundImage = `url('${currentUser.photoURL || 'https://www.gravatar.com/avatar/?d=retro&s=200'}')`;
 
-  // Habilita chat
-  chatInput && (chatInput.disabled = false);
-  sendButton && (sendButton.disabled = false);
+  chatInput && (chatInput.disabled = false);
+  sendButton && (sendButton.disabled = false);
 
-  // Presença e contagem
-  setupPresence(currentUser.uid);
-  subscribeOnlineCount();
+  setupPresence(currentUser.uid);
+  subscribeOnlineCount();
 
-  // Mensagens da sala atual
-  listenForMessages(currentRoom);
+  listenForMessages(currentRoom);
+  listenForFriendRequests();
+  loadPrivateRooms();
 
-  // Solicitações de amizade
-  listenForFriendRequests();
-
-  // Lista de salas privadas
-  loadPrivateRooms();
-
-  // Preenche modal de perfil
-  if (profileUsernameInput) profileUsernameInput.value = currentUser.displayName || '';
-  if (modalAvatarPreview) modalAvatarPreview.src = currentUser.photoURL || 'https://www.gravatar.com/avatar/?d=retro&s=200';
+  if (profileUsernameInput) profileUsernameInput.value = currentUser.displayName || '';
+  if (modalAvatarPreview) modalAvatarPreview.src = currentUser.photoURL || 'https://www.gravatar.com/avatar/?d=retro&s=200';
 });
-
 
 // ========== Chat ==========
 function listenForMessages(roomId) {
-  // Esconde todos os containers de chat
-  if (chatMessagesContainer) chatMessagesContainer.style.display = 'none';
-  if (aiChatMessagesContainer) aiChatMessagesContainer.style.display = 'none';
+  if (chatMessagesContainer) chatMessagesContainer.style.display = 'none';
+  if (aiChatMessagesContainer) aiChatMessagesContainer.style.display = 'none';
 
-  // Mostra o container correto
-  if (roomId === 'ia-chat') {
-    if (aiChatMessagesContainer) aiChatMessagesContainer.style.display = 'block';
-    // Remove o listener do chat real para não haver conflitos
-    const chatCollectionRef = collection(db, `rooms/${'publico'}/messages`);
-    onSnapshot(chatCollectionRef, () => {});
-    clearChat(true);
-  } else {
-    if (chatMessagesContainer) chatMessagesContainer.style.display = 'block';
-    const q = query(collection(db, `rooms/${roomId}/messages`), orderBy("createdAt", "desc"));
-    onSnapshot(q, (snapshot) => {
-      clearChat(false);
-      snapshot.forEach((docSnap) => {
-        const msg = docSnap.data();
-        addMessage(msg.username, msg.text, msg.createdAt, msg.avatar, msg.uid, false);
-      });
-    });
-  }
+  if (roomId === 'ia-chat') {
+    if (aiChatMessagesContainer) aiChatMessagesContainer.style.display = 'block';
+    clearChat(true);
+  } else {
+    if (chatMessagesContainer) chatMessagesContainer.style.display = 'block';
+    const q = query(collection(db, `rooms/${roomId}/messages`), orderBy("createdAt", "desc"));
+    onSnapshot(q, (snapshot) => {
+      clearChat(false);
+      snapshot.forEach((docSnap) => {
+        const msg = docSnap.data();
+        addMessage(msg.username, msg.text, msg.createdAt, msg.avatar, msg.uid, false);
+      });
+    });
+  }
 }
 
 async function sendMessage(text) {
-  if (!currentUser || !text.trim()) return;
+  if (!currentUser || !text.trim()) return;
 
-  // Se for a sala da IA, usa a simulação
-  if (currentRoom === 'ia-chat') {
-    addMessage(currentUser.displayName || 'Você', text, null, currentUser.photoURL, currentUser.uid, true);
-    simulateAIResponse(text);
-    return;
-  }
-  
-  try {
-    await addDoc(collection(db, `rooms/${currentRoom}/messages`), {
-      username: currentUser.displayName || 'Usuário',
-      uid: currentUser.uid,
-      text: text.trim(),
-      createdAt: serverTimestamp(),
-      avatar: currentUser.photoURL || 'https://www.gravatar.com/avatar/?d=retro&s=200'
-    });
-  } catch (e) {
-    console.error(e);
-    alert('Erro ao enviar mensagem.');
-  }
+  if (currentRoom === 'ia-chat') {
+    addMessage(currentUser.displayName || 'Você', text, null, currentUser.photoURL, currentUser.uid, true);
+    simulateAIResponse(text);
+    return;
+  }
+
+  try {
+    await addDoc(collection(db, `rooms/${currentRoom}/messages`), {
+      username: currentUser.displayName || 'Usuário',
+      uid: currentUser.uid,
+      text: text.trim(),
+      createdAt: serverTimestamp(),
+      avatar: currentUser.photoURL || 'https://www.gravatar.com/avatar/?d=retro&s=200'
+    });
+  } catch (e) {
+    console.error(e);
+    alert('Erro ao enviar mensagem.');
+  }
 }
 
+// ========== IA Avançada ==========
 function simulateAIResponse(userMessage) {
-  // Mensagem de desenvolvimento
-  const developmentMessage = document.createElement('div');
-  developmentMessage.classList.add('ai-development-message');
-  developmentMessage.innerHTML = 'A IA está em desenvolvimento e pode ter respostas limitadas. Por favor, aguarde.';
-  aiChatMessagesContainer.appendChild(developmentMessage);
+  if (!aiChatMessagesContainer) return;
 
-  setTimeout(() => {
-    const aiResponse = document.createElement('div');
-    aiResponse.classList.add('message', 'ai-message');
-    
-    let responseText = '';
-    const normalizedMessage = userMessage.toLowerCase().trim();
+  const developmentMessage = document.createElement('div');
+  developmentMessage.classList.add('ai-development-message');
+  developmentMessage.textContent = 'ZYRA está pensando...';
+  aiChatMessagesContainer.appendChild(developmentMessage);
 
-    if (normalizedMessage.includes('filme')) {
-      responseText = "Minha sugestão de filme é: 'A Origem' (Inception). É um ótimo filme de ficção científica!";
-    } else if (normalizedMessage.includes('jogos')) {
-      responseText = "Que tal 'The Witcher 3'? É um jogo com uma história incrível e um mundo enorme para explorar.";
-    } else if (normalizedMessage.includes('dia a dia') || normalizedMessage.includes('recomendações')) {
-      responseText = "Uma recomendação para o dia a dia: tente beber mais água e fazer pequenas pausas para alongar.";
-    } else {
-      responseText = "Olá eu sou a ZYRA! Por enquanto, posso te dar algumas recomendações. Tente perguntar sobre 'filme', 'jogos' ou 'recomendações do dia a dia'.";
-    }
+  setTimeout(() => {
+    const aiResponse = document.createElement('div');
+    aiResponse.classList.add('message', 'ai-message');
 
-    aiResponse.textContent = responseText;
-    aiChatMessagesContainer.appendChild(aiResponse);
-    aiChatMessagesContainer.scrollTop = aiChatMessagesContainer.scrollHeight;
+    const username = currentUser?.displayName || 'Você';
+    const frases = userMessage.split(/[\.\?\!]/).map(f => f.trim()).filter(f => f);
+    let respostasGeradas = [];
 
-    // Remove a mensagem de desenvolvimento após a resposta
-    developmentMessage.remove();
+    frases.forEach(frase => {
+      const msg = frase.toLowerCase();
 
-  }, 1500); // Simula um tempo de processamento de 2.5 segundos
+      const respostas = {
+        filmes: ["'A Origem', 'Interestelar', 'Parasita'"],
+        jogos: ["'The Witcher 3', 'Hollow Knight', 'Minecraft'"],
+        musica: ["Lo-Fi, Dua Lipa, Queen"],
+        diaadia: ["Beba água, faça pausas, organize seu dia"],
+        curiosidade: ["Polvos têm 3 corações, o Sol é 330.000x mais pesado que a Terra"],
+        programacao: ["JavaScript é ótimo para web, Python para IA, use comentários e testes"],
+        humor: [`Sinto muito que você esteja passando por isso, ${username}.`, `Espero que seu dia melhore, ${username}.`],
+        apresentacao: [`Oi, ${username}, eu sou a ZYRA, sua assistente virtual!`],
+        idade: ["Não tenho idade, mas estou sempre aprendendo!"],
+        piada: ["Programador vai ao médico: muitos bugs! 😅", "Zebra é em preto e branco! 😂"],
+        motivacao: [`Nunca desista, ${username}. Cada passo conta.`],
+        clima: ["Leve guarda-chuva se chover, dia ensolarado para passeios!"]
+      };
+
+      function detectarCategorias(msg) {
+        const categorias = [];
+        if (/filme|cinema/.test(msg)) categorias.push('filmes');
+        if (/jogo|games/.test(msg)) categorias.push('jogos');
+        if (/música|musica|song/.test(msg)) categorias.push('musica');
+        if (/dia|dica|recomendação|recomendacoes/.test(msg)) categorias.push('diaadia');
+        if (/curiosidade|fato/.test(msg)) categorias.push('curiosidade');
+        if (/programa|código|codigo|programação/.test(msg)) categorias.push('programacao');
+        if (/triste|não estou bem|deprimido|mal|cansado|ansioso/.test(msg)) categorias.push('humor');
+        if (/oi|olá|ola|quem é você/.test(msg)) categorias.push('apresentacao');
+        if (/idade|anos/.test(msg)) categorias.push('idade');
+        if (/piada|brincadeira|divertido/.test(msg)) categorias.push('piada');
+        if (/motivação|motivacao|ânimo|animo|coragem/.test(msg)) categorias.push('motivacao');
+        if (/clima|sol|chuva|frio|tempo/.test(msg)) categorias.push('clima');
+        if (/como você está|tudo bem/.test(msg)) categorias.push('humor');
+        return categorias;
+      }
+
+      const categoriasDetectadas = detectarCategorias(msg);
+      if (categoriasDetectadas.length > 0) {
+        categoriasDetectadas.forEach(cat => {
+          const lista = respostas[cat];
+          respostasGeradas.push(lista[Math.floor(Math.random() * lista.length)]);
+        });
+      } else {
+        respostasGeradas.push(`Desculpe, ${username}, não entendi. Pergunte sobre filmes, jogos, música, programação, curiosidades, piadas ou motivação.`);
+      }
+    });
+
+    aiResponse.textContent = respostasGeradas.join(' ');
+    aiChatMessagesContainer.appendChild(aiResponse);
+    aiChatMessagesContainer.scrollTop = aiChatMessagesContainer.scrollHeight;
+    developmentMessage.remove();
+  }, 1500);
 }
 
+// ========== Adicionar mensagens ==========
 function addMessage(username, text, timestamp, avatarUrl, uid, isAI) {
-  const msg = document.createElement('div');
-  msg.classList.add('message-bubble');
+  const msg = document.createElement('div');
+  msg.classList.add('message-bubble');
 
-  if (currentUser && uid === currentUser.uid) {
-    msg.classList.add('own-message');   // direita
-  } else {
-    msg.classList.add('other-message'); // esquerda
-  }
+  if (currentUser && uid === currentUser.uid) msg.classList.add('own-message');
+  else msg.classList.add('other-message');
 
-  const time = (timestamp && timestamp.seconds)
-    ? new Date(timestamp.seconds * 1000).toLocaleTimeString()
-    : 'Agora';
+  const time = (timestamp && timestamp.seconds)
+    ? new Date(timestamp.seconds * 1000).toLocaleTimeString()
+    : 'Agora';
 
-  msg.innerHTML = `
-    <div class="message-avatar" style="background-image: url('${avatarUrl || ''}')"></div>
-    <div class="message-content">
-      <span class="message-author">${escapeHTML(username || '')}</span>
-      <p class="message-text">${escapeHTML(text || '')}</p>
-      <span class="message-timestamp">${time}</span>
-    </div>
-  `;
-  if (isAI) {
-    aiChatMessagesContainer && aiChatMessagesContainer.prepend(msg);
-  } else {
-    chatMessagesContainer && chatMessagesContainer.prepend(msg);
-  }
+  msg.innerHTML = `
+    <div class="message-avatar" style="background-image: url('${avatarUrl || ''}')"></div>
+    <div class="message-content">
+      <span class="message-author">${escapeHTML(username || '')}</span>
+      <p class="message-text">${escapeHTML(text || '')}</p>
+      <span class="message-timestamp">${time}</span>
+    </div>
+  `;
+
+  if (isAI) aiChatMessagesContainer && aiChatMessagesContainer.prepend(msg);
+  else chatMessagesContainer && chatMessagesContainer.prepend(msg);
 }
 
 function clearChat(isAI) {
-  if (isAI) {
-    if (aiChatMessagesContainer) aiChatMessagesContainer.innerHTML = '';
-  } else {
-    if (chatMessagesContainer) chatMessagesContainer.innerHTML = '';
-  }
+  if (isAI) aiChatMessagesContainer && (aiChatMessagesContainer.innerHTML = '');
+  else chatMessagesContainer && (chatMessagesContainer.innerHTML = '');
 }
 
 function escapeHTML(str) {
-  return (str || '').replace(/[&<>"']/g, s => (
-    { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[s]
-  ));
+  return (str || '').replace(/[&<>"']/g, s => (
+    { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[s]
+  ));
 }
+
+// ========== O resto do seu código (perfil, amigos, salas, tema, modais, eventos, logout) permanece **igual**, sem alteração ==========
+// Você pode copiar todo o restante do seu feed.js original daqui para manter todas as funcionalidades intactas.
+
+
 
 
 // ========== Perfil (14 dias + avatar) ==========
