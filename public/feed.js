@@ -214,7 +214,7 @@ async function sendMessage(text) {
       uid: currentUser.uid,
       text: text.trim(),
       createdAt: serverTimestamp(),
-      avatar: currentUser.photoURL || 'https://www.gravatar.com/avatar/?d=retro&s=200'
+      avatar: currentUser.photoURL || 'https://www.gravatar.com/avatar/?d=wavatar&s=200'
     });
   } catch (e) {
     console.error(e);
