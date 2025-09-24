@@ -222,7 +222,9 @@ async function sendMessage(text) {
   }
 }
 
-// ========== IA de Recomendações Avançada ==========
+// ========== IA Super Interativa ==========
+let ultimaCategoriaSolicitada = null;
+
 function simulateAIResponse(userMessage) {
   if (!aiChatMessagesContainer) return;
 
@@ -240,91 +242,81 @@ function simulateAIResponse(userMessage) {
     let respostasGeradas = [];
 
     const respostas = {
+      cumprimentos: [
+        `Oi ${username}! Que bom te ver! 😃 Quer que eu te recomende filmes, séries, jogos ou música?`,
+        `Olá ${username}! Pronto para algumas recomendações? Filmes, séries, livros ou games?`,
+        `E aí, ${username}? Posso sugerir algo divertido hoje — filmes, jogos, músicas ou livros?`
+      ],
       filmes: [
-        "Recomendo 'A Origem' (Inception) para quem gosta de ficção científica.",
-        "Que tal 'Parasita'? Filme premiado e envolvente.",
-        "'Interestelar' é ótimo para aventuras espaciais.",
-        "'O Poderoso Chefão' para quem ama clássicos de drama e máfia.",
-        "'Vingadores: Ultimato' se gosta de ação e super-heróis."
+        "Aqui vão 3 filmes que eu recomendo: 'A Origem', 'Parasita', 'Interestelar'. Qual estilo você prefere: ação, suspense ou ficção científica?",
+        "'O Poderoso Chefão', 'Vingadores: Ultimato', 'O Senhor dos Anéis'. Quer sugestões mais recentes ou clássicos?",
+        "'Matrix', 'Clube da Luta', 'Inception'. Posso te dar mais opções se quiser!"
       ],
       series: [
-        "'Stranger Things' — mistério e aventura.",
-        "'Breaking Bad' — drama intenso.",
-        "'The Mandalorian' — Star Wars para todos os fãs.",
-        "'Friends' — comédia leve e clássica.",
-        "'Game of Thrones' — fantasia épica."
+        "'Stranger Things', 'Breaking Bad', 'The Mandalorian'. Quer algo de comédia ou suspense?",
+        "'Friends', 'Game of Thrones', 'The Crown'. Posso sugerir mais se quiser!",
+        "'The Witcher', 'Dark', 'Loki'. Quer recomendações de fantasia ou drama?"
       ],
       jogos: [
-        "'The Witcher 3' — RPG épico.",
-        "'Hollow Knight' — aventura e exploração.",
-        "'Minecraft' — criatividade sem limites.",
-        "'Fortnite' — ação e multiplayer online.",
-        "'Stardew Valley' — simulação e relaxamento."
+        "'The Witcher 3', 'Hollow Knight', 'Minecraft'. Prefere RPG, aventura ou sandbox?",
+        "'Fortnite', 'Stardew Valley', 'Celeste'. Quer algo multiplayer ou single-player?",
+        "'Among Us', 'League of Legends', 'Genshin Impact'. Posso sugerir jogos para PC ou console?"
       ],
       consoles: [
-        "Nintendo Switch — portabilidade e diversão casual.",
-        "PlayStation 5 — gráficos de última geração.",
-        "Xbox Series X — ótimo para multiplayer online.",
-        "PC gamer — máxima performance e customização.",
-        "Retro consoles — nostalgia e jogos clássicos."
+        "Nintendo Switch, PlayStation 5, Xbox Series X. Quer saber sobre portabilidade ou gráficos?",
+        "PC Gamer, consoles retrô, PlayStation 4. Posso detalhar vantagens de cada um!",
+        "Xbox One, Nintendo Switch Lite, PS5 Digital Edition. Prefere consoles atuais ou clássicos?"
       ],
       musica: [
-        "Lo-Fi para relaxar ou estudar.",
-        "Dua Lipa para músicas animadas.",
-        "Queen — clássicos eternos.",
-        "Billie Eilish — som alternativo e moderno.",
-        "Playlist de Jazz para momentos tranquilos."
+        "Lo-Fi, Dua Lipa, Queen. Quer mais pop, rock ou eletrônico?",
+        "Billie Eilish, Coldplay, Imagine Dragons. Prefere playlists calmas ou animadas?",
+        "Jazz, Bossa Nova, Hip-Hop. Posso criar uma playlist para você!"
       ],
       livros: [
-        "'Dom Quixote' — clássico da literatura.",
-        "'1984' de Orwell — reflexão sobre sociedade.",
-        "'O Senhor dos Anéis' — fantasia épica.",
-        "'Harry Potter' — magia e aventura.",
-        "'Mindset' de Carol Dweck — desenvolvimento pessoal."
-      ],
-      curiosidade: [
-        "Polvos têm 3 corações!",
-        "O Sol é 330.000x mais pesado que a Terra.",
-        "As abelhas podem reconhecer rostos humanos.",
-        "Bananas são naturalmente radioativas.",
-        "O coração de uma baleia azul é do tamanho de um carro pequeno!"
+        "'Dom Quixote', '1984', 'O Senhor dos Anéis'. Quer clássicos ou modernos?",
+        "'Harry Potter', 'Mindset', 'O Poder do Hábito'. Posso sugerir fantasia ou autoajuda?",
+        "'O Pequeno Príncipe', 'Sapiens', '1984'. Quer livros leves ou reflexivos?"
       ],
       hobbies: [
-        "Aprender a desenhar ou pintar.",
-        "Jogar xadrez para estimular a mente.",
-        "Fotografia como forma de expressão.",
-        "Caminhadas ao ar livre para saúde física e mental.",
-        "Culinária — experimente receitas novas!"
+        "Aprender a desenhar, jogar xadrez, fotografia. Quer algo criativo ou estratégico?",
+        "Caminhadas, jardinagem, culinária. Prefere atividades ao ar livre ou indoor?",
+        "Leitura, música, programação. Posso sugerir mais ideias se quiser!"
       ],
       lifestyle: [
-        "Organize seu dia usando listas e horários.",
-        "Faça pequenas pausas durante trabalho ou estudo.",
-        "Beba água regularmente e mantenha alimentação saudável.",
-        "Pratique exercícios físicos leves diariamente.",
-        "Meditação ou respiração profunda ajuda a reduzir estresse."
+        "Organize seu dia, faça pausas, beba água. Quer dicas para saúde ou produtividade?",
+        "Pratique exercícios, medite, mantenha rotina. Posso sugerir apps e ferramentas!",
+        "Experimente novos hábitos, cozinhe receitas diferentes, aprenda algo novo!"
       ],
       humor: [
         "Piada: Por que o livro foi ao médico? Porque estava com muitas páginas faltando! 😄",
-        "Programador vai ao médico: muitos bugs! 😅",
-        "Zebra é em preto e branco! 😂",
         "O que o zero disse para o oito? Belo cinto! 😆",
-        "Por que o computador foi ao médico? Porque pegou um vírus! 💻"
+        "Programador vai ao médico: muitos bugs! 😅 Quer ouvir mais piadas?"
       ],
-      default: [`Desculpe, ${username}, não entendi. Você pode pedir recomendações de filmes, séries, jogos, música, livros, consoles, hobbies ou dicas de lifestyle.`]
+      default: [
+        `Desculpe, ${username}, não entendi. Você pode pedir recomendações de filmes, séries, jogos, música, livros, consoles, hobbies, lifestyle ou piadas.`
+      ]
     };
 
     function detectarCategoria(msg) {
       msg = msg.toLowerCase();
-      if (/filme|cinema|longa/.test(msg)) return 'filmes';
-      if (/série|serie|tv/.test(msg)) return 'series';
-      if (/jogo|game|video game/.test(msg)) return 'jogos';
-      if (/console|playstation|xbox|switch|pc gamer/.test(msg)) return 'consoles';
-      if (/música|musica|song|playlist/.test(msg)) return 'musica';
-      if (/livro|ler|literatura/.test(msg)) return 'livros';
-      if (/curiosidade|fato|informação|fatos/.test(msg)) return 'curiosidade';
-      if (/hobby|passatempo|atividade/.test(msg)) return 'hobbies';
-      if (/dica|bem-estar|saúde|organização|lifestyle/.test(msg)) return 'lifestyle';
-      if (/piada|humor|engraçado|brincadeira/.test(msg)) return 'humor';
+
+      if (/^oi$|^ol[áa]$|^e aí|^ola|^bom dia|^boa tarde|^boa noite/.test(msg)) {
+        ultimaCategoriaSolicitada = null;
+        return 'cumprimentos';
+      }
+
+      if (/filme|cinema|longa/.test(msg)) { ultimaCategoriaSolicitada = 'filmes'; return 'filmes'; }
+      if (/série|serie|tv/.test(msg)) { ultimaCategoriaSolicitada = 'series'; return 'series'; }
+      if (/jogo|game|video game/.test(msg)) { ultimaCategoriaSolicitada = 'jogos'; return 'jogos'; }
+      if (/console|playstation|xbox|switch|pc gamer/.test(msg)) { ultimaCategoriaSolicitada = 'consoles'; return 'consoles'; }
+      if (/música|musica|song|playlist/.test(msg)) { ultimaCategoriaSolicitada = 'musica'; return 'musica'; }
+      if (/livro|ler|literatura/.test(msg)) { ultimaCategoriaSolicitada = 'livros'; return 'livros'; }
+      if (/hobby|passatempo|atividade/.test(msg)) { ultimaCategoriaSolicitada = 'hobbies'; return 'hobbies'; }
+      if (/dica|bem-estar|saúde|saude|organização|organizacao|lifestyle/.test(msg)) { ultimaCategoriaSolicitada = 'lifestyle'; return 'lifestyle'; }
+      if (/piada|humor|engraçado|engracado|brincadeira/.test(msg)) { ultimaCategoriaSolicitada = 'humor'; return 'humor'; }
+
+      if (ultimaCategoriaSolicitada) return ultimaCategoriaSolicitada;
+
       return 'default';
     }
 
