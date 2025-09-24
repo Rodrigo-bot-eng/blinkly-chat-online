@@ -549,7 +549,7 @@ if (searchFriendBtn) {
       foundUserCache = { uid: docUser.id, ...data };
 
       searchResultMessage && (searchResultMessage.textContent = '');
-      if (foundUserAvatar) foundUserAvatar.src = data.photoURL || 'hhttps://www.gravatar.com/avatar/?d=wavatar&s=200';
+      if (foundUserAvatar) foundUserAvatar.src = data.photoURL || 'https://www.gravatar.com/avatar/?d=wavatar&s=200';
       if (foundUserName) foundUserName.textContent = data.username || 'Usuário';
       foundUserProfileBox && (foundUserProfileBox.style.display = 'block');
     } catch (e) {
