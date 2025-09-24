@@ -155,14 +155,14 @@ onAuthStateChanged(auth, async (user) => {
     await setDoc(userDocRef, {
       username: currentUser.displayName || 'Usuário',
       email: currentUser.email || '',
-      photoURL: currentUser.photoURL || 'https://www.gravatar.com/avatar/?d=retro&s=200',
+      photoURL: currentUser.photoURL || 'https://www.gravatar.com/avatar/?d=wavatar&s=200',
       createdAt: serverTimestamp(),
       usernameLower: (currentUser.displayName || 'Usuário').toLowerCase()
     }, { merge: true });
   }
 
   displayUsername && (displayUsername.textContent = currentUser.displayName || 'Usuário');
-  if (userAvatarImg) userAvatarImg.style.backgroundImage = `url('${currentUser.photoURL || 'https://www.gravatar.com/avatar/?d=retro&s=200'}')`;
+  if (userAvatarImg) userAvatarImg.style.backgroundImage = `url('${currentUser.photoURL || 'https://www.gravatar.com/avatar/?d=wavatar&s=200'}')`;
 
   chatInput && (chatInput.disabled = false);
   sendButton && (sendButton.disabled = false);
@@ -175,7 +175,7 @@ onAuthStateChanged(auth, async (user) => {
   loadPrivateRooms();
 
   if (profileUsernameInput) profileUsernameInput.value = currentUser.displayName || '';
-  if (modalAvatarPreview) modalAvatarPreview.src = currentUser.photoURL || 'https://www.gravatar.com/avatar/?d=retro&s=200';
+  if (modalAvatarPreview) modalAvatarPreview.src = currentUser.photoURL || 'https://www.gravatar.com/avatar/?d=wavatar&s=200';
 });
 
 // ========== Chat ==========
