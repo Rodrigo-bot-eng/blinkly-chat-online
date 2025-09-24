@@ -222,7 +222,7 @@ async function sendMessage(text) {
   }
 }
 
-// ========== IA Avançada ==========
+// ========== IA Avançada COMPLETA ==========
 function simulateAIResponse(userMessage) {
   if (!aiChatMessagesContainer) return;
 
@@ -239,51 +239,99 @@ function simulateAIResponse(userMessage) {
     const frases = userMessage.split(/[\.\?\!]/).map(f => f.trim()).filter(f => f);
     let respostasGeradas = [];
 
+    const respostas = {
+      // ========== Fatos e informações ==========
+      fatos: [
+        "A capital da França é Paris.",
+        "Dom Quixote foi escrito por Miguel de Cervantes.",
+        "O Monte Everest tem cerca de 8.848 metros de altura.",
+        "IA funciona processando dados e aprendendo padrões para tomar decisões ou prever resultados.",
+        "Machine Learning é um tipo de IA que aprende com dados; IA é o conceito geral de máquinas inteligentes."
+      ],
+      // ========== Criação e redação ==========
+      criacao: [
+        "Posso ajudá-lo a escrever um e-mail formal, só me diga o destinatário e assunto.",
+        "Aqui está um poema sobre o mar: 'Ondas dançam sem parar, brisa leve a me levar…'",
+        "Para um roteiro de vídeo no YouTube, sugiro começar com uma introdução curta, depois 3 tópicos principais, e concluir com uma chamada à ação.",
+        "Resumo sobre a Roma Antiga: civilização que durou mais de mil anos, famosa por engenharia, exércitos e cultura.",
+        "Currículo: comece com dados pessoais, experiência, formação e habilidades. Seja objetivo!"
+      ],
+      // ========== Resolução de problemas ==========
+      problemas: [
+        "Resolvendo: 4y + 7 = 31 → y = 6",
+        "Para evitar trânsito, use aplicativos de mapas com dados em tempo real.",
+        "Verificando erros em Python: sempre leia o traceback e revise indentação e variáveis.",
+        "Teoria dos Jogos analisa decisões estratégicas entre participantes racionais.",
+        "Para gerenciar tempo: priorize tarefas, faça listas e use técnicas como Pomodoro."
+      ],
+      // ========== Curiosidade e entretenimento ==========
+      curiosidade: [
+        "Piada: Por que o livro foi ao médico? Porque tinha muitas páginas faltando! 😄",
+        "Arte moderna é subjetiva, muitas pessoas a apreciam por cores e ideias inovadoras.",
+        "Filme recomendado: 'A Origem' (Inception). Série: 'Stranger Things'.",
+        "Gorila vs urso? Depende, mas na vida real é melhor não testar!",
+        "Assistente de voz favorito? Eu mesma! 😎"
+      ],
+      // ========== Sobre a IA ==========
+      ia: [
+        "Não tenho sentimentos humanos, mas posso simular empatia e conversar.",
+        "Posso ser criativa em textos, ideias e sugestões.",
+        "A IA pode automatizar algumas tarefas, mas o trabalho humano ainda é essencial.",
+        "Meu propósito é ajudar e informar, de forma segura e ética.",
+        "Preconceitos existem em dados, mas posso ser ajustada para reduzir vieses."
+      ],
+      // ========== Categorias antigas ==========
+      filmes: ["'A Origem', 'Interestelar', 'Parasita'"],
+      jogos: ["'The Witcher 3', 'Hollow Knight', 'Minecraft'"],
+      musica: ["Lo-Fi, Dua Lipa, Queen"],
+      diaadia: ["Beba água, faça pausas, organize seu dia"],
+      programacao: ["JavaScript é ótimo para web, Python para IA, use comentários e testes"],
+      humor: [`Sinto muito que você esteja passando por isso, ${username}.`, `Espero que seu dia melhore, ${username}.`],
+      apresentacao: [`Oi, ${username}, eu sou a ZYRA, sua assistente virtual!`],
+      idade: ["Não tenho idade, mas estou sempre aprendendo!"],
+      piada: ["Programador vai ao médico: muitos bugs! 😅", "Zebra é em preto e branco! 😂"],
+      motivacao: [`Nunca desista, ${username}. Cada passo conta.`],
+      clima: ["Leve guarda-chuva se chover, dia ensolarado para passeios!"],
+      sentimento: ["Fico feliz em ouvir isso!", `É normal sentir isso, ${username}, estou aqui pra ouvir.`],
+      default: [`Desculpe, ${username}, não entendi. Pergunte sobre filmes, jogos, música, fatos, programação, piadas, motivação ou redação.`]
+    };
+
+    function detectarCategorias(msg) {
+      const categorias = [];
+      // Fatos e informações
+      if (/\b(capital|quem escreveu|altura|como funciona|diferença|significado)\b/.test(msg)) categorias.push('fatos');
+      // Criação e redação
+      if (/\b(escreva|crie|resuma|ajude|poema|roteiro|currículo|email|redação)\b/.test(msg)) categorias.push('criacao');
+      // Resolução de problemas
+      if (/\b(resolva|equação|calcule|como fazer|erro|estratégia|programa|problema|teoria|gestão)\b/.test(msg)) categorias.push('problemas');
+      // Curiosidade e entretenimento
+      if (/\b(piada|opinião|recomende|recomendação|luta|favorito|série|filme|arte)\b/.test(msg)) categorias.push('curiosidade');
+      // Sobre a IA
+      if (/\b(sentimentos|criativa|propósito|vieses|trabalho humano|limitações|IA|inteligência artificial)\b/.test(msg)) categorias.push('ia');
+      // Categorias antigas
+      if (/filme|cinema/.test(msg)) categorias.push('filmes');
+      if (/jogo|games/.test(msg)) categorias.push('jogos');
+      if (/música|musica|song/.test(msg)) categorias.push('musica');
+      if (/dia|dica|recomendação|recomendacoes/.test(msg)) categorias.push('diaadia');
+      if (/programa|código|codigo|programação/.test(msg)) categorias.push('programacao');
+      if (/triste|não estou bem|deprimido|mal|cansado|ansioso/.test(msg)) categorias.push('humor');
+      if (/oi|olá|ola|quem é você/.test(msg)) categorias.push('apresentacao');
+      if (/idade|anos/.test(msg)) categorias.push('idade');
+      if (/piada|brincadeira|divertido/.test(msg)) categorias.push('piada');
+      if (/motivação|motivacao|ânimo|animo|coragem/.test(msg)) categorias.push('motivacao');
+      if (/clima|sol|chuva|frio|tempo/.test(msg)) categorias.push('clima');
+      if (/como você está|tudo bem/.test(msg)) categorias.push('sentimento');
+      return categorias.length ? categorias : ['default'];
+    }
+
+    // Processa cada frase
     frases.forEach(frase => {
       const msg = frase.toLowerCase();
-
-      const respostas = {
-        filmes: ["'A Origem', 'Interestelar', 'Parasita'"],
-        jogos: ["'The Witcher 3', 'Hollow Knight', 'Minecraft'"],
-        musica: ["Lo-Fi, Dua Lipa, Queen"],
-        diaadia: ["Beba água, faça pausas, organize seu dia"],
-        curiosidade: ["Polvos têm 3 corações, o Sol é 330.000x mais pesado que a Terra"],
-        programacao: ["JavaScript é ótimo para web, Python para IA, use comentários e testes"],
-        humor: [`Sinto muito que você esteja passando por isso, ${username}.`, `Espero que seu dia melhore, ${username}.`],
-        apresentacao: [`Oi, ${username}, eu sou a ZYRA, sua assistente virtual!`],
-        idade: ["Não tenho idade, mas estou sempre aprendendo!"],
-        piada: ["Programador vai ao médico: muitos bugs! 😅", "Zebra é em preto e branco! 😂"],
-        motivacao: [`Nunca desista, ${username}. Cada passo conta.`],
-        clima: ["Leve guarda-chuva se chover, dia ensolarado para passeios!"]
-      };
-
-      function detectarCategorias(msg) {
-        const categorias = [];
-        if (/filme|cinema/.test(msg)) categorias.push('filmes');
-        if (/jogo|games/.test(msg)) categorias.push('jogos');
-        if (/música|musica|song/.test(msg)) categorias.push('musica');
-        if (/dia|dica|recomendação|recomendacoes/.test(msg)) categorias.push('diaadia');
-        if (/curiosidade|fato/.test(msg)) categorias.push('curiosidade');
-        if (/programa|código|codigo|programação/.test(msg)) categorias.push('programacao');
-        if (/triste|não estou bem|deprimido|mal|cansado|ansioso/.test(msg)) categorias.push('humor');
-        if (/oi|olá|ola|quem é você/.test(msg)) categorias.push('apresentacao');
-        if (/idade|anos/.test(msg)) categorias.push('idade');
-        if (/piada|brincadeira|divertido/.test(msg)) categorias.push('piada');
-        if (/motivação|motivacao|ânimo|animo|coragem/.test(msg)) categorias.push('motivacao');
-        if (/clima|sol|chuva|frio|tempo/.test(msg)) categorias.push('clima');
-        if (/como você está|tudo bem/.test(msg)) categorias.push('humor');
-        return categorias;
-      }
-
       const categoriasDetectadas = detectarCategorias(msg);
-      if (categoriasDetectadas.length > 0) {
-        categoriasDetectadas.forEach(cat => {
-          const lista = respostas[cat];
-          respostasGeradas.push(lista[Math.floor(Math.random() * lista.length)]);
-        });
-      } else {
-        respostasGeradas.push(`Desculpe, ${username}, não entendi. Pergunte sobre filmes, jogos, música, programação, curiosidades, piadas ou motivação.`);
-      }
+      categoriasDetectadas.forEach(cat => {
+        const lista = respostas[cat];
+        respostasGeradas.push(lista[Math.floor(Math.random() * lista.length)]);
+      });
     });
 
     aiResponse.textContent = respostasGeradas.join(' ');
@@ -292,6 +340,7 @@ function simulateAIResponse(userMessage) {
     developmentMessage.remove();
   }, 1500);
 }
+
 
 // ========== Adicionar mensagens ==========
 function addMessage(username, text, timestamp, avatarUrl, uid, isAI) {
